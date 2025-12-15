@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
 import { Instagram, ArrowUpRight } from "lucide-react";
+import instagram1 from "@/assets/instagram-1.jpg";
+import instagram2 from "@/assets/instagram-2.jpg";
+import instagram3 from "@/assets/instagram-3.jpg";
+import instagram4 from "@/assets/instagram-4.jpg";
+import instagram5 from "@/assets/instagram-5.jpg";
+import instagram6 from "@/assets/instagram-6.jpg";
 
 const posts = [
-  "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80",
-  "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=400&q=80",
-  "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&q=80",
-  "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=400&q=80",
-  "https://images.unsplash.com/photo-1633421878578-b49c6aaba50a?w=400&q=80",
-  "https://images.unsplash.com/photo-1618004912476-29818d81ae2e?w=400&q=80",
+  instagram1,
+  instagram2,
+  instagram3,
+  instagram4,
+  instagram5,
+  instagram6,
 ];
 
 export const InstagramPreview = () => {

@@ -1,31 +1,35 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import portfolioCoffee from "@/assets/portfolio-coffee.jpg";
+import portfolioFashion from "@/assets/portfolio-fashion.jpg";
+import portfolioGreen from "@/assets/portfolio-green.jpg";
+import portfolioTech from "@/assets/portfolio-tech.jpg";
 
 const projects = [
   {
     id: 1,
     title: "Artisan Coffee Co.",
     category: "Brand Identity",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    image: portfolioCoffee,
   },
   {
     id: 2,
     title: "Luxe Fashion House",
     category: "Digital Campaign",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: portfolioFashion,
   },
   {
     id: 3,
     title: "Green Earth Initiative",
     category: "Social Media",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
+    image: portfolioGreen,
   },
   {
     id: 4,
     title: "Tech Startup Launch",
     category: "Full Branding",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    image: portfolioTech,
   },
 ];
 

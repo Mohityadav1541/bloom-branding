@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial3 from "@/assets/testimonial-3.jpg";
 
 const testimonials = [
   {
@@ -8,21 +11,21 @@ const testimonials = [
     content: "Bloom Branding completely transformed our brand identity. Their strategic approach and creative execution exceeded all expectations. The team truly understands how to make brands stand out.",
     author: "Sarah Mitchell",
     role: "CEO, Artisan Coffee Co.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
+    image: testimonial1,
   },
   {
     id: 2,
     content: "Working with Bloom was a game-changer for our digital presence. Their attention to detail and innovative designs helped us connect with our audience in ways we never imagined possible.",
     author: "Michael Chen",
     role: "Founder, Tech Innovations",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+    image: testimonial2,
   },
   {
     id: 3,
     content: "The team at Bloom brings passion and expertise to every project. They don't just create brands; they craft experiences that resonate deeply with customers. Highly recommended!",
     author: "Emily Rodriguez",
     role: "Marketing Director, Green Earth",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
+    image: testimonial3,
   },
 ];
 

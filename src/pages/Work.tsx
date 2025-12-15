@@ -4,6 +4,14 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ArrowUpRight } from "lucide-react";
+import portfolioCoffee from "@/assets/portfolio-coffee.jpg";
+import portfolioFashion from "@/assets/portfolio-fashion.jpg";
+import portfolioGreen from "@/assets/portfolio-green.jpg";
+import portfolioTech from "@/assets/portfolio-tech.jpg";
+import portfolioWellness from "@/assets/portfolio-wellness.jpg";
+import portfolioRestaurant from "@/assets/portfolio-restaurant.jpg";
+import portfolioFitness from "@/assets/portfolio-fitness.jpg";
+import portfolioBrewery from "@/assets/portfolio-brewery.jpg";
 
 const categories = ["All", "Brand Identity", "Digital Campaign", "Social Media", "Production"];
 
@@ -13,56 +21,56 @@ const projects = [
     title: "Artisan Coffee Co.",
     category: "Brand Identity",
     description: "Complete brand overhaul for a specialty coffee roaster",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+    image: portfolioCoffee,
   },
   {
     id: 2,
     title: "Luxe Fashion House",
     category: "Digital Campaign",
     description: "Launch campaign for premium fashion collection",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: portfolioFashion,
   },
   {
     id: 3,
     title: "Green Earth Initiative",
     category: "Social Media",
     description: "Awareness campaign for environmental sustainability",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
+    image: portfolioGreen,
   },
   {
     id: 4,
     title: "Tech Startup Launch",
     category: "Brand Identity",
     description: "Full branding for innovative tech company",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    image: portfolioTech,
   },
   {
     id: 5,
     title: "Wellness Retreat",
     category: "Production",
     description: "Brand film and photography for luxury wellness brand",
-    image: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&q=80",
+    image: portfolioWellness,
   },
   {
     id: 6,
     title: "Urban Eats",
     category: "Social Media",
     description: "Social media strategy and content for restaurant chain",
-    image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
+    image: portfolioRestaurant,
   },
   {
     id: 7,
     title: "Fitness Revolution",
     category: "Digital Campaign",
     description: "Digital launch campaign for fitness app",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+    image: portfolioFitness,
   },
   {
     id: 8,
     title: "Craft Brewery",
     category: "Brand Identity",
     description: "Brand identity for artisanal craft brewery",
-    image: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&q=80",
+    image: portfolioBrewery,
   },
 ];
 
