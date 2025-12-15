@@ -3,6 +3,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Heart, Lightbulb, Target, Users } from "lucide-react";
+import teamPhoto from "@/assets/team-photo.jpg";
+import founderPhoto from "@/assets/founder-photo.jpg";
 
 const values = [
   {
@@ -101,7 +103,7 @@ const Story = () => {
                 <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20 p-1">
                   <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center overflow-hidden">
                     <img
-                      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80"
+                      src={teamPhoto}
                       alt="Bloom Branding Team"
                       className="w-full h-full object-cover"
                     />
@@ -227,7 +229,7 @@ const Story = () => {
                 <div className="aspect-square rounded-3xl bg-gradient-to-br from-accent/20 via-primary/10 to-secondary/20 p-1 max-w-md mx-auto">
                   <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center overflow-hidden">
                     <img
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+                      src={founderPhoto}
                       alt="Founder"
                       className="w-full h-full object-cover"
                     />
