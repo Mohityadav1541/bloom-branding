@@ -9,6 +9,7 @@ const navLinks = [
   { name: "Our Story", path: "/story" },
   { name: "Services", path: "/services" },
   { name: "Work", path: "/work" },
+  { name: "Our Founder", path: "/founder" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -47,11 +48,10 @@ export const Navbar = () => {
                 className="relative group"
               >
                 <span
-                  className={`font-body text-sm tracking-wide transition-colors ${
-                    location.pathname === link.path
+                  className={`font-body text-sm tracking-wide transition-colors ${location.pathname === link.path
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </span>
@@ -104,11 +104,10 @@ export const Navbar = () => {
                   <Link
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block py-2 font-body text-lg ${
-                      location.pathname === link.path
+                    className={`block py-2 font-body text-lg ${location.pathname === link.path
                         ? "text-primary"
                         : "text-muted-foreground"
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </Link>
