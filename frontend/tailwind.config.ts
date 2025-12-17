@@ -14,10 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        fontFamily: {
-          display: ['Bodoni Moda', 'serif'],
-          body: ['Lekton', 'sans-serif'],
-        },
+        display: ['Bodoni Moda', 'serif'],
+        body: ['Lekton', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
