@@ -14,8 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
+        fontFamily: {
+          display: ['Bodoni Moda', 'serif'],
+          body: ['Lekton', 'sans-serif'],
+        },
       },
       colors: {
         border: "hsl(var(--border))",
