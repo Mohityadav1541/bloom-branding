@@ -29,7 +29,7 @@ const services = [
     title: "Social Media",
     description: "Strategic social presence that builds authentic connections and drives meaningful engagement.",
     color: "from-bloom-sage to-primary",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&auto=format&fit=crop&q=80",
   },
   {
     icon: Sparkles,
