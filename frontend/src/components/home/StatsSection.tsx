@@ -87,7 +87,7 @@ export const StatsSection = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
-                  className="absolute -inset-4 rounded-full bg-primary/10 blur-xl"
+                  className="absolute -inset-8 rounded-full bg-primary/25 blur-2xl"
                 />
                 <span className="relative font-display text-5xl md:text-6xl lg:text-7xl font-bold text-primary">
                   <CountUp end={stat.value} suffix={stat.suffix} />
