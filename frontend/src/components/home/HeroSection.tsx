@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -53,16 +54,10 @@ export const HeroSection = () => {
           </motion.div>
 
           {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6"
-          >
-            <span className="text-foreground">We Help Brands</span>
-            <br />
-            <span className="text-gradient">Bloom & Thrive</span>
-          </motion.h1>
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center">
+            <TextReveal text="We Help Brands" className="justify-center text-foreground" delay={0.2} />
+            <TextReveal text="Bloom & Thrive" className="justify-center text-gradient" delay={0.4} />
+          </h1>
 
           {/* Subheading */}
           <motion.p
@@ -71,7 +66,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Strategic storytelling meets bold creativity. We craft digital experiences 
+            Strategic storytelling meets bold creativity. We craft digital experiences
             that transform brands into unforgettable stories.
           </motion.p>
 
