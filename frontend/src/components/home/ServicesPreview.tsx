@@ -11,6 +11,13 @@ const services = [
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80",
   },
   {
+    icon: Palette,
+    title: "Visual Identity",
+    description: "From logo design to complete visual systems, we create cohesive brand identities that communicate your values and captivate your audience.",
+    color: "from-accent to-secondary",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop&q=80",
+  },
+  {
     icon: Camera,
     title: "Content Creation",
     description: "Compelling visual content that tells your story and engages your community across all platforms.",
