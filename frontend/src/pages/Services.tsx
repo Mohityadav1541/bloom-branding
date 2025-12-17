@@ -18,6 +18,7 @@ const services = [
       "Brand Architecture",
       "Messaging Framework",
     ],
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80",
     color: "from-primary to-accent",
   },
   {
@@ -31,6 +32,7 @@ const services = [
       "Brand Guidelines",
       "Collateral Design",
     ],
+    image: "https://images.unsplash.com/photo-1626785774573-4b799314346d?w=800&auto=format&fit=crop&q=80",
     color: "from-accent to-secondary",
   },
   {
@@ -44,6 +46,7 @@ const services = [
       "Product Photography",
       "Campaign Assets",
     ],
+    image: "https://images.unsplash.com/photo-1542038784456-1ea0e93ca375?w=800&auto=format&fit=crop&q=80",
     color: "from-secondary to-bloom-gold",
   },
   {
@@ -57,6 +60,7 @@ const services = [
       "Documentary Style",
       "Event Coverage",
     ],
+    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&auto=format&fit=crop&q=80",
     color: "from-bloom-gold to-bloom-sage",
   },
   {
@@ -70,6 +74,7 @@ const services = [
       "Analytics & Insights",
       "Growth Campaigns",
     ],
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=80",
     color: "from-bloom-sage to-primary",
   },
   {
@@ -83,6 +88,7 @@ const services = [
       "Landing Pages",
       "Digital Campaigns",
     ],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
     color: "from-primary to-bloom-rose",
   },
 ];
@@ -91,7 +97,7 @@ const Services = () => {
   return (
     <PageTransition>
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24 min-h-screen bg-background text-foreground">
         {/* Hero */}
         <section className="py-24 relative overflow-hidden">
           <div className="container mx-auto px-6">
@@ -118,76 +124,67 @@ const Services = () => {
                 transition={{ delay: 0.2 }}
                 className="text-lg text-muted-foreground leading-relaxed"
               >
-                From strategy to execution, we offer comprehensive branding solutions 
+                From strategy to execution, we offer comprehensive branding solutions
                 that transform businesses into memorable brands.
               </motion.p>
             </div>
           </div>
-
-          {/* Decorative Elements */}
-          <motion.div
-            animate={{ y: [-20, 20, -20] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 right-[10%] w-4 h-4 rounded-full bg-primary/40"
-          />
-          <motion.div
-            animate={{ y: [20, -20, 20] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/3 right-[20%] w-2 h-2 rounded-full bg-accent/60"
-          />
         </section>
 
-        {/* Services List */}
-        <section className="py-12">
+        {/* Services Grid */}
+        <section className="py-12 pb-32">
           <div className="container mx-auto px-6">
-            <div className="space-y-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
                 <motion.div
                   key={service.title}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                  }`}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative h-[500px] w-full overflow-hidden rounded-3xl"
                 >
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Dark Overlay for Text Visibility */}
+                    <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors duration-500" />
+                    {/* Gradient Overlay for bottom text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                  </div>
+
                   {/* Content */}
-                  <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                      <service.icon className="h-8 w-8 text-primary-foreground" />
+                  <div className="relative h-full flex flex-col justify-end p-8 text-white z-10">
+                    <div className="mb-auto pt-4">
+                      <div className={`w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 mb-6 group-hover:bg-white/20 transition-colors`}>
+                        <service.icon className="h-7 w-7 text-white" />
+                      </div>
                     </div>
-                    <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
+
+                    <h2 className="font-display text-3xl font-bold mb-3 transform group-hover:-translate-y-2 transition-transform duration-300">
                       {service.title}
                     </h2>
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+
+                    <p className="text-white/80 text-base leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100 absolute bottom-32 left-8 right-8 lg:relative lg:bottom-0 lg:left-0 lg:right-0">
                       {service.description}
                     </p>
-                    <ul className="space-y-3">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-3">
+
+                    {/* Features List showing on hover/mobile */}
+                    <ul className="space-y-2 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200 lg:hidden group-hover:block">
+                      {service.features.slice(0, 3).map((feature) => (
+                        <li key={feature} className="flex items-center gap-2 text-sm text-white/90">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          <span className="text-foreground">{feature}</span>
+                          <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
 
-                  {/* Visual */}
-                  <div className={`relative ${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className={`aspect-square rounded-3xl bg-gradient-to-br ${service.color} p-1`}
-                    >
-                      <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center">
-                        <service.icon className="h-24 w-24 text-muted-foreground/20" />
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                      className={`absolute -z-10 inset-0 rounded-3xl bg-gradient-to-br ${service.color} blur-3xl opacity-20`}
-                    />
+                    {/* Visible line for decoration */}
+                    <div className={`h-1 w-0 group-hover:w-full bg-gradient-to-r ${service.color} transition-all duration-700 mt-6`} />
                   </div>
                 </motion.div>
               ))}
@@ -196,7 +193,7 @@ const Services = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-24">
+        <section className="py-24 bg-muted/30">
           <div className="container mx-auto px-6">
             <div className="max-w-3xl mx-auto text-center">
               <motion.h2
@@ -208,28 +205,13 @@ const Services = () => {
                 Let's Create Something<br />
                 <span className="text-gradient">Extraordinary</span>
               </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-lg text-muted-foreground mb-10"
-              >
-                Ready to transform your brand? Let's talk about your project.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-              >
-                <Button asChild size="lg" className="group">
+              <div className="flex justify-center">
+                <Button asChild size="lg" className="rounded-full px-8">
                   <Link to="/contact">
-                    Start a Project
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    Start a Project <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
