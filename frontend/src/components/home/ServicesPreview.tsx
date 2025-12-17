@@ -22,7 +22,7 @@ const services = [
     title: "Production",
     description: "High-quality video and photo production that brings your brand vision to life with cinematic flair.",
     color: "from-bloom-gold to-bloom-sage",
-    image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&auto=format&fit=crop&q=80",
   },
   {
     icon: Share2,

@@ -32,7 +32,7 @@ const services = [
       "Brand Guidelines",
       "Collateral Design",
     ],
-    image: "https://images.unsplash.com/photo-1626785774573-4b799314346d?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop&q=80",
     color: "from-accent to-secondary",
   },
   {
@@ -60,7 +60,7 @@ const services = [
       "Documentary Style",
       "Event Coverage",
     ],
-    image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&auto=format&fit=crop&q=80",
     color: "from-bloom-gold to-bloom-sage",
   },
   {
