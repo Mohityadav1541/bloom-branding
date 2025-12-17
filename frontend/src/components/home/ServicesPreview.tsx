@@ -15,14 +15,14 @@ const services = [
     title: "Content Creation",
     description: "Compelling visual content that tells your story and engages your community across all platforms.",
     color: "from-secondary to-bloom-gold",
-    image: "https://images.unsplash.com/photo-1542038784456-1ea0e93ca375?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80",
   },
   {
     icon: Film,
     title: "Production",
     description: "High-quality video and photo production that brings your brand vision to life with cinematic flair.",
     color: "from-bloom-gold to-bloom-sage",
-    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&auto=format&fit=crop&q=80",
   },
   {
     icon: Share2,
