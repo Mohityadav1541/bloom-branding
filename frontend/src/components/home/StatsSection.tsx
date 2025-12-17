@@ -46,7 +46,7 @@ export const StatsSection = () => {
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
-      
+
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -89,7 +89,7 @@ export const StatsSection = () => {
                   transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
                   className="absolute -inset-4 rounded-full bg-primary/10 blur-xl"
                 />
-                <span className="relative font-display text-5xl md:text-6xl lg:text-7xl font-bold text-gradient">
+                <span className="relative font-display text-5xl md:text-6xl lg:text-7xl font-bold text-primary">
                   <CountUp end={stat.value} suffix={stat.suffix} />
                 </span>
               </div>
