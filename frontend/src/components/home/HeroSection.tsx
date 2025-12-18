@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 import { ArrowRight, Play } from "lucide-react";
@@ -30,17 +30,27 @@ const item = {
 };
 
 export const HeroSection = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [animationPhase, setAnimationPhase] = useState<'start' | 'driving' | 'smoke' | 'reveal' | 'idle'>('start');
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX - window.innerWidth / 2) / 50,
-        y: (e.clientY - window.innerHeight / 2) / 50,
-      });
+    // Sequence Timeline
+    const sequence = async () => {
+      // Phase 1: Car starts driving
+      setAnimationPhase('driving');
+
+      // Phase 2: Smoke accumulating (starts shortly after car moves)
+      setTimeout(() => setAnimationPhase('smoke'), 800);
+
+      // Phase 3: Reveal text from smoke
+      setTimeout(() => setAnimationPhase('reveal'), 2500);
+
+      // Phase 4: Settle to idle state
+      setTimeout(() => setAnimationPhase('idle'), 4000);
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    // Slight delay on mount
+    const timer = setTimeout(sequence, 500);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -131,7 +141,7 @@ export const HeroSection = () => {
           <motion.h1
             variants={container}
             initial="hidden"
-            animate="show"
+            animate={animationPhase === 'reveal' || animationPhase === 'idle' ? "show" : "hidden"}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
           >
             <div className="overflow-hidden">
@@ -153,7 +163,7 @@ export const HeroSection = () => {
           {/* Subheading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={animationPhase === 'reveal' || animationPhase === 'idle' ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 1.2 }}
             className="max-w-2xl mx-auto mb-10"
           >
@@ -188,32 +198,68 @@ export const HeroSection = () => {
 
       </div>
 
-      {/* 3D Parallax Vehicle */}
-      <motion.div
-        initial={{ x: "100%", opacity: 0, scale: 0.8 }}
-        animate={{
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          rotateY: mousePosition.x * 0.5, // Subtle 3D rotation based on mouse
-        }}
-        transition={{
-          duration: 1.5,
-          ease: "circOut",
-          rotateY: { type: "spring", stiffness: 100, damping: 30 }
-        }}
-        style={{
-          x: mousePosition.x * -1, // Parallax movement opposite to mouse
-          y: mousePosition.y * -1,
-        }}
-        className="absolute bottom-0 right-0 w-full max-w-[500px] lg:max-w-[800px] h-auto pointer-events-none z-0 opacity-100"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
-          alt="Luxury Car"
-          className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(var(--primary),0.3)] mask-image-gradient-b"
-        />
-      </motion.div>
+      {/* Cinematic Car & Smoke Animation */}
+      <AnimatePresence>
+        {animationPhase !== 'idle' && (
+          <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden flex items-end">
+
+            {/* Cinematic Fog/Smoke Logic */}
+            {(animationPhase === 'smoke' || animationPhase === 'reveal') && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                {[...Array(20)].map((_, i) => (
+                  <motion.div
+                    key={`smoke-${i}`}
+                    initial={{ opacity: 0, scale: 0.2, x: 0, y: 50 }}
+                    animate={{
+                      opacity: [0, 0.4, 0],
+                      scale: [0.5, 3 + Math.random() * 2, 4],
+                      x: (Math.random() - 0.5) * 500,
+                      y: -100 - Math.random() * 200,
+                    }}
+                    transition={{
+                      duration: 3 + Math.random(),
+                      delay: i * 0.1,
+                      ease: "easeOut"
+                    }}
+                    className="absolute w-64 h-64 rounded-full bg-white/10 blur-[80px]"
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* The Driving Car */}
+            <motion.div
+              initial={{ x: "-100vw", opacity: 0 }}
+              animate={{
+                x: ["-100vw", "120vw"],
+                opacity: [1, 1]
+              }}
+              transition={{
+                duration: 3.5,
+                ease: "easeInOut",
+                times: [0, 1]
+              }}
+              className="absolute bottom-10 w-[600px] md:w-[900px] z-40"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+                alt="Cinematic Sports Car"
+                className="w-full h-auto object-contain drop-shadow-2xl"
+                style={{ filter: "brightness(0.8) contrast(1.2)" }}
+              />
+              {/* Exhaust Smoke Emitter (Simulated) */}
+              <div className="absolute bottom-5 right-10">
+                <motion.div
+                  animate={{ opacity: [0, 0.5, 0], scale: [0.5, 2] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="w-20 h-20 bg-white/20 blur-xl rounded-full"
+                />
+              </div>
+            </motion.div>
+
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll Indicator */}
       <motion.div
