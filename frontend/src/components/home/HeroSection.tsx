@@ -13,7 +13,7 @@ export const HeroSection = () => {
     // Sync text reveal with video shutter timing
     const timer = setTimeout(() => {
       setShowText(true);
-    }, 1200); // Trigger "pop" at 1.2s (shutter click simulation)
+    }, 2000); // Trigger "pop" at 2.0s to match cinematic buildup
     return () => clearTimeout(timer);
   }, []);
 
@@ -181,7 +181,7 @@ export const HeroSection = () => {
             onLoadedData={() => setIsVideoLoaded(true)}
           >
             {/* Placeholder: Camera Lens/Tech Abstract */}
-            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+            <source src="https://videos.pexels.com/video-files/5155396/5155396-uhd_2560_1440_24fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
