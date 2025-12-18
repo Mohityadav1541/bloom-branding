@@ -1,8 +1,32 @@
 import { motion } from "framer-motion";
-import { TextReveal } from "@/components/ui/TextReveal";
+
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: "100%", rotateX: -20, opacity: 0 },
+  show: {
+    y: "0%",
+    rotateX: 0,
+    opacity: 1,
+    transition: {
+      duration: 1.2,
+
+    },
+  },
+};
 
 export const HeroSection = () => {
   return (
@@ -90,21 +114,40 @@ export const HeroSection = () => {
           </motion.div>
 
           {/* Main Heading */}
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center">
-            <TextReveal text="We Help Brands" className="justify-center text-foreground" delay={0.2} />
-            <TextReveal text="Bloom & Thrive" className="justify-center text-gradient" delay={0.4} />
-          </h1>
+          <motion.h1
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
+          >
+            <div className="overflow-hidden">
+              <motion.div variants={item} className="flex gap-4 justify-center text-foreground">
+                <span>We</span>
+                <span>Help</span>
+                <span>Brands</span>
+              </motion.div>
+            </div>
+            <div className="overflow-hidden">
+              <motion.div variants={item} className="flex gap-4 justify-center items-center">
+                <span className="text-gradient">Bloom</span>
+                <span className="text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
+                <span className="text-gradient">Thrive</span>
+              </motion.div>
+            </div>
+          </motion.h1>
 
           {/* Subheading */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="max-w-2xl mx-auto mb-10"
           >
-            Strategic storytelling meets bold creativity. We craft digital experiences
-            that transform brands into unforgettable stories.
-          </motion.p>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              Strategic storytelling meets bold creativity. We craft digital experiences
+              that transform brands into unforgettable stories.
+            </p>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
