@@ -51,7 +51,7 @@ export const HeroSection = () => {
             delay: i * 0.3,
             ease: "easeInOut",
           }}
-          className={`absolute w-1 h-1 rounded-full bg-[#C4A484]/80`}
+          className={`absolute w-1 h-1 rounded-full bg-[#D4AF37]`}
           style={{
             top: `${20 + i * 12}%`,
             left: `${10 + i * 15}%`,
@@ -68,7 +68,7 @@ export const HeroSection = () => {
             delay: i * 0.4,
             ease: "easeInOut",
           }}
-          className={`absolute w-1 h-1 rounded-full bg-[#C4A484]/80`}
+          className={`absolute w-1 h-1 rounded-full bg-[#D4AF37]`}
           style={{
             top: `${15 + i * 14}%`,
             right: `${10 + i * 12}%`,
