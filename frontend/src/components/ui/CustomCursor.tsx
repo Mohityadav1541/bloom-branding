@@ -5,6 +5,8 @@ export const CustomCursor = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
 
+    const [isMobile, setIsMobile] = useState(false);
+
     useEffect(() => {
         const updateMousePosition = (e: MouseEvent) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
@@ -25,14 +27,25 @@ export const CustomCursor = () => {
             }
         };
 
+        const checkMobile = () => {
+            // Check if device is touch-primary (mobile/tablet)
+            const isTouch = window.matchMedia("(pointer: coarse)").matches;
+            setIsMobile(isTouch);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
         window.addEventListener("mousemove", updateMousePosition);
         window.addEventListener("mouseover", handleMouseOver);
 
         return () => {
+            window.removeEventListener("resize", checkMobile);
             window.removeEventListener("mousemove", updateMousePosition);
             window.removeEventListener("mouseover", handleMouseOver);
         };
     }, []);
+
+    if (isMobile) return null;
 
     return (
         <>
