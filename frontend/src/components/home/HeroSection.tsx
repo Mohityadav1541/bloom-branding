@@ -27,17 +27,17 @@ export const HeroSection = () => {
       <motion.div
         animate={{ y: [-20, 20, -20] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-[15%] w-3 h-3 rounded-full bg-primary/60"
+        className="absolute top-1/4 left-[15%] w-3 h-3 rounded-full bg-primary"
       />
       <motion.div
         animate={{ y: [20, -20, 20] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 right-[20%] w-2 h-2 rounded-full bg-accent/60"
+        className="absolute top-1/3 right-[20%] w-2 h-2 rounded-full bg-[#624A41]/80"
       />
       <motion.div
         animate={{ y: [-15, 25, -15] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/3 left-[25%] w-4 h-4 rounded-full bg-secondary/40"
+        className="absolute bottom-1/3 left-[25%] w-4 h-4 rounded-full bg-primary/60"
       />
 
       <div className="container mx-auto px-6 relative z-10">

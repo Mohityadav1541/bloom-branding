@@ -56,7 +56,7 @@ export const TestimonialsSection = () => {
             className="font-display text-4xl md:text-5xl font-semibold mt-4"
           >
             What Our Clients<br />
-            <span className="text-gradient">Say About Us</span>
+            Say About Us
           </motion.h2>
         </div>
 
@@ -115,11 +115,10 @@ export const TestimonialsSection = () => {
                   <button
                     key={index}
                     onClick={() => setCurrent(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === current
+                    className={`w-2 h-2 rounded-full transition-all ${index === current
                         ? "bg-primary w-8"
                         : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                    }`}
+                      }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
