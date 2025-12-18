@@ -177,16 +177,16 @@ export const HeroSection = () => {
             muted
             playsInline
             loop={false}
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-80"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* Placeholder: Camera Lens/Tech Abstract */}
-            <source src="https://videos.pexels.com/video-files/5155396/5155396-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+            {/* Reliable Camera Lens Placeholder */}
+            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Deep overlay for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-background/20" />
+        {/* Lighter overlay for better visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
       </div>
 
       {/* Scroll Indicator */}
