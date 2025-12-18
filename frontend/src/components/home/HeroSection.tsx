@@ -81,7 +81,7 @@ export const HeroSection = () => {
               </div>
             </div>
             <div className="overflow-hidden p-2">
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center items-center drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center items-center">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient-x">Bloom</span>
                 <span className="text-2xl sm:text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">Thrive</span>
