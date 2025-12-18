@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { useState, useEffect } from "react";
 
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -29,6 +30,19 @@ const item = {
 };
 
 export const HeroSection = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX - window.innerWidth / 2) / 50,
+        y: (e.clientY - window.innerHeight / 2) / 50,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-background">
       {/* Background Elements */}
@@ -100,8 +114,8 @@ export const HeroSection = () => {
         />
       ))}
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-1 items-center gap-10">
+        <div className="max-w-5xl mx-auto text-center relative z-20">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -173,6 +187,33 @@ export const HeroSection = () => {
 
 
       </div>
+
+      {/* 3D Parallax Vehicle */}
+      <motion.div
+        initial={{ x: "100%", opacity: 0, scale: 0.8 }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          rotateY: mousePosition.x * 0.5, // Subtle 3D rotation based on mouse
+        }}
+        transition={{
+          duration: 1.5,
+          ease: "circOut",
+          rotateY: { type: "spring", stiffness: 100, damping: 30 }
+        }}
+        style={{
+          x: mousePosition.x * -1, // Parallax movement opposite to mouse
+          y: mousePosition.y * -1,
+        }}
+        className="absolute bottom-0 right-0 w-[800px] h-auto pointer-events-none z-0 hidden lg:block opacity-80 mix-blend-lighten"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+          alt="Luxury Car"
+          className="w-full h-full object-contain drop-shadow-[0_0_50px_rgba(var(--primary),0.3)] mask-image-gradient-b"
+        />
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
