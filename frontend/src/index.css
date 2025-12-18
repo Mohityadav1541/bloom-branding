@@ -113,6 +113,13 @@
   h6 {
     @apply font-display tracking-tight;
   }
+
+  /* Hide default cursor on devices with a mouse/fine pointer */
+  @media (pointer: fine) {
+    * {
+      cursor: none !important;
+    }
+  }
 }
 
 @layer components {
