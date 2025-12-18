@@ -206,7 +206,7 @@ export const HeroSection = () => {
           x: mousePosition.x * -1, // Parallax movement opposite to mouse
           y: mousePosition.y * -1,
         }}
-        className="absolute bottom-0 right-0 w-[800px] h-auto pointer-events-none z-0 hidden lg:block opacity-80 mix-blend-lighten"
+        className="absolute bottom-0 right-0 w-full max-w-[500px] lg:max-w-[800px] h-auto pointer-events-none z-0 opacity-100"
       >
         <img
           src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
