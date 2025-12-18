@@ -70,20 +70,20 @@ export const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
             animate={showText ? { opacity: 1, scale: 1, rotateX: 0, y: 0, filter: "blur(0px)" } : { opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} // Cubic bezier for "tech" feel
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
+            className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
             style={{ perspective: "1000px" }}
           >
             <div className="overflow-hidden p-2">
-              <div className="flex gap-4 justify-center text-foreground tracking-tight drop-shadow-2xl">
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center text-foreground tracking-tight drop-shadow-2xl">
                 <span>We</span>
                 <span>Help</span>
                 <span>Brands</span>
               </div>
             </div>
             <div className="overflow-hidden p-2">
-              <div className="flex gap-4 justify-center items-center drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center items-center drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient-x">Bloom</span>
-                <span className="text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
+                <span className="text-2xl sm:text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">Thrive</span>
               </div>
             </div>
