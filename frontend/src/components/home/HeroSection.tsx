@@ -40,6 +40,42 @@ export const HeroSection = () => {
         className="absolute bottom-1/3 left-[25%] w-4 h-4 rounded-full bg-primary/60"
       />
 
+      {/* Twinkle Stars */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
+          transition={{
+            duration: 2 + i * 0.5,
+            repeat: Infinity,
+            delay: i * 0.3,
+            ease: "easeInOut",
+          }}
+          className={`absolute w-1 h-1 rounded-full bg-white/80`}
+          style={{
+            top: `${20 + i * 12}%`,
+            left: `${10 + i * 15}%`,
+          }}
+        />
+      ))}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={`right-${i}`}
+          animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
+          transition={{
+            duration: 3 + i * 0.5,
+            repeat: Infinity,
+            delay: i * 0.4,
+            ease: "easeInOut",
+          }}
+          className={`absolute w-1 h-1 rounded-full bg-white/80`}
+          style={{
+            top: `${15 + i * 14}%`,
+            right: `${10 + i * 12}%`,
+          }}
+        />
+      ))}
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
