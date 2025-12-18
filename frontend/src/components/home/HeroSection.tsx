@@ -13,7 +13,7 @@ export const HeroSection = () => {
     // Sync text reveal with video shutter timing
     const timer = setTimeout(() => {
       setShowText(true);
-    }, 2000); // Trigger "pop" at 2.0s to match cinematic buildup
+    }, 1500); // Trigger earlier for smoother flow
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,58 +35,22 @@ export const HeroSection = () => {
         />
       </div>
 
-      {/* Floating Elements */}
+      {/* Floating Elements - 3D Particles */}
       <motion.div
-        animate={{ y: [-20, 20, -20] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-[15%] w-3 h-3 rounded-full bg-primary"
-      />
-      <motion.div
-        animate={{ y: [20, -20, 20] }}
+        animate={{ y: [-30, 30, -30], rotate: [0, 45, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 right-[20%] w-2 h-2 rounded-full bg-primary/80"
+        className="absolute top-1/4 left-[15%] w-4 h-4 rounded-sm bg-primary blur-[2px] opacity-60"
       />
       <motion.div
-        animate={{ y: [-15, 25, -15] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/3 left-[25%] w-4 h-4 rounded-full bg-primary/60"
+        animate={{ y: [40, -40, 40], rotate: [0, -90, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/3 right-[20%] w-3 h-3 rounded-full bg-primary/80 blur-[1px] opacity-70"
       />
-
-      {/* Twinkle Stars */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
-          transition={{
-            duration: 2 + i * 0.5,
-            repeat: Infinity,
-            delay: i * 0.3,
-            ease: "easeInOut",
-          }}
-          className={`absolute w-1 h-1 rounded-full bg-[#D4AF37] shadow-[0_0_4px_#D4AF37]`}
-          style={{
-            top: `${20 + i * 12}%`,
-            left: `${10 + i * 15}%`,
-          }}
-        />
-      ))}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={`right-${i}`}
-          animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
-          transition={{
-            duration: 3 + i * 0.5,
-            repeat: Infinity,
-            delay: i * 0.4,
-            ease: "easeInOut",
-          }}
-          className={`absolute w-1 h-1 rounded-full bg-[#D4AF37] shadow-[0_0_4px_#D4AF37]`}
-          style={{
-            top: `${15 + i * 14}%`,
-            right: `${10 + i * 12}%`,
-          }}
-        />
-      ))}
+      <motion.div
+        animate={{ y: [-25, 35, -25], scale: [1, 1.5, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-1/3 left-[25%] w-6 h-6 rounded-full bg-primary/40 blur-[4px]"
+      />
 
       <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-1 items-center gap-10">
         <div className="max-w-5xl mx-auto text-center relative z-20">
@@ -95,31 +59,32 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-muted-foreground">Creative Branding Studio</span>
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse box-shadow-[0_0_10px_0_rgba(34,211,238,0.5)]" />
+            <span className="text-sm text-white/80 tracking-wide font-light">Future of Branding</span>
           </motion.div>
 
-          {/* Main Heading - Pops out from "Lens" */}
+          {/* Main Heading - 3D VFX Reveal */}
           <motion.h1
-            initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
-            animate={showText ? { opacity: 1, scale: 1, filter: "blur(0px)" } : { opacity: 0, scale: 0.5, filter: "blur(10px)" }}
-            transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }} // Spring-like "pop" effect
+            initial={{ opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
+            animate={showText ? { opacity: 1, scale: 1, rotateX: 0, y: 0, filter: "blur(0px)" } : { opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} // Cubic bezier for "tech" feel
             className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
+            style={{ perspective: "1000px" }}
           >
-            <div className="overflow-hidden">
-              <div className="flex gap-4 justify-center text-foreground">
+            <div className="overflow-hidden p-2">
+              <div className="flex gap-4 justify-center text-foreground tracking-tight drop-shadow-2xl">
                 <span>We</span>
                 <span>Help</span>
                 <span>Brands</span>
               </div>
             </div>
-            <div className="overflow-hidden">
-              <div className="flex gap-4 justify-center items-center">
-                <span className="text-gradient">Bloom</span>
+            <div className="overflow-hidden p-2">
+              <div className="flex gap-4 justify-center items-center drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient-x">Bloom</span>
                 <span className="text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
-                <span className="text-gradient">Thrive</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">Thrive</span>
               </div>
             </div>
           </motion.h1>
@@ -128,12 +93,12 @@ export const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={showText ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.5 }} // Slight delay after heading
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="max-w-2xl mx-auto mb-10"
           >
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Strategic storytelling meets bold creativity. We craft digital experiences
-              that transform brands into unforgettable stories.
+            <p className="text-lg md:text-xl text-white/70 leading-relaxed font-light">
+              Where strategic storytelling meets <span className="text-cyan-400">immersive technology</span>. We craft digital experiences
+              that exist at the edge of imagination.
             </p>
           </motion.div>
 
@@ -144,53 +109,48 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button asChild size="lg" className="group">
+            <Button asChild size="lg" className="group bg-white/10 hover:bg-white/20 text-white border-white/10 backdrop-blur-sm transition-all duration-300">
               <Link to="/contact">
-                Start Your Journey
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                Start Journey
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform text-cyan-400" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="group">
+            <Button asChild variant="outline" size="lg" className="group border-white/10 text-white hover:bg-white/5 hover:text-cyan-400">
               <Link to="/work">
                 <Play className="mr-2 h-4 w-4" />
-                View Our Work
+                Showreel
               </Link>
             </Button>
           </motion.div>
         </div>
       </div>
 
-      {/* Cinematic Video Background - Camera Lens */}
+      {/* 3D VFX Video Background - Abstract Tech Tunnel/Lens */}
       <div
-        className="absolute inset-0 z-0 overflow-hidden bg-gray-900 bg-cover bg-center"
-        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop")' }}
+        className="absolute inset-0 z-0 overflow-hidden bg-black bg-cover bg-center"
       >
-        {/* Placeholder Message for User */}
-        <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
-          Use your Camera Shutter 3D Render Here
-        </div>
-
         <motion.div
           className="absolute inset-0 w-full h-full"
-          animate={{ filter: showText ? "blur(4px)" : "blur(0px)" }} // Reduced blur
+          animate={{ filter: showText ? "blur(5px) brightness(0.4)" : "blur(0px) brightness(1)" }} // Dim background on reveal
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <video
             autoPlay
             muted
             playsInline
-            loop={false}
+            loop
             className="w-full h-full object-cover opacity-100"
-            poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop"
+            poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* HD Camera Lens Video (Lighter file size for faster load) */}
-            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            {/* 3D VFX Abstract Tech/Lens Video */}
+            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_25fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Very light overlay just for text readability */}
-        <div className="absolute inset-0 bg-black/10" />
+        {/* Cinematic VFX Overlays */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
       </div>
 
       {/* Scroll Indicator */}
@@ -205,8 +165,8 @@ export const HeroSection = () => {
           transition={{ duration: 1.5, repeat: Infinity }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent" />
+          <span className="text-xs text-white/50 uppercase tracking-widest font-light">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-cyan-400 to-transparent" />
         </motion.div>
       </motion.div>
     </section>
