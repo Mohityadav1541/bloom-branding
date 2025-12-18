@@ -69,12 +69,13 @@ export const CustomCursor = () => {
         <>
             {/* Main Cursor - Tech Diamond */}
             <motion.div
-                className="fixed top-0 left-0 w-3 h-3 bg-cyan-400 rounded-sm pointer-events-none z-50 mix-blend-screen shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+                className="fixed top-0 left-0 w-3 h-3 bg-cyan-400 rounded-sm pointer-events-none z-50 shadow-[0_0_10px_rgba(34,211,238,0.8)]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,
                     translateX: "-50%", // Center optimization
                     translateY: "-50%",
+                    willChange: "transform", // Hardware Acceleration Hint
                 }}
                 animate={{
                     rotate: isHovering ? 225 : 45,
@@ -85,12 +86,13 @@ export const CustomCursor = () => {
 
             {/* Trailing Ring - HUD / Focus Style */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 border border-white/40 border-dashed rounded-full pointer-events-none z-40 mix-blend-difference"
+                className="fixed top-0 left-0 w-8 h-8 border border-white border-dashed rounded-full pointer-events-none z-40 opacity-80"
                 style={{
                     x: ringXSpring,
                     y: ringYSpring,
                     translateX: "-50%",
                     translateY: "-50%",
+                    willChange: "transform", // Hardware Acceleration Hint
                 }}
                 animate={{
                     scale: isHovering ? 2 : 1,
@@ -101,12 +103,13 @@ export const CustomCursor = () => {
 
             {/* Outer Glow / Ghost - Subtle Lag */}
             <motion.div
-                className="fixed top-0 left-0 w-12 h-12 border border-cyan-500/20 rounded-full pointer-events-none z-30 opacity-40"
+                className="fixed top-0 left-0 w-12 h-12 border border-cyan-500/30 rounded-full pointer-events-none z-30 opacity-40"
                 style={{
                     x: ghostXSpring,
                     y: ghostYSpring,
                     translateX: "-50%",
                     translateY: "-50%",
+                    willChange: "transform",
                 }}
                 animate={{
                     scale: isHovering ? 1.5 : 1,
