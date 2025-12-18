@@ -32,7 +32,7 @@ export const Navbar = () => {
               transition={{ duration: 0.6 }}
               className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center"
             >
-              <span className="font-display font-bold text-primary-foreground text-lg">B</span>
+              {/* Removed "B" letter as per request */}
             </motion.div>
             <span className="font-display text-xl font-semibold text-foreground">
               Bloom<span className="text-primary">.</span>
@@ -49,8 +49,8 @@ export const Navbar = () => {
               >
                 <span
                   className={`font-body text-sm tracking-wide transition-colors ${location.pathname === link.path
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   {link.name}
@@ -105,8 +105,8 @@ export const Navbar = () => {
                     to={link.path}
                     onClick={() => setIsOpen(false)}
                     className={`block py-2 font-body text-lg ${location.pathname === link.path
-                        ? "text-primary"
-                        : "text-muted-foreground"
+                      ? "text-primary"
+                      : "text-muted-foreground"
                       }`}
                   >
                     {link.name}
