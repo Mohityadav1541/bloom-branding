@@ -1,55 +1,19 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const item = {
-  hidden: { y: "100%", rotateX: -20, opacity: 0 },
-  show: {
-    y: "0%",
-    rotateX: 0,
-    opacity: 1,
-    transition: {
-      duration: 1.2,
-
-    },
-  },
-};
-
 export const HeroSection = () => {
-  const [animationPhase, setAnimationPhase] = useState<'start' | 'driving' | 'smoke' | 'reveal' | 'idle'>('start');
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-    // Sequence Timeline
-    const sequence = async () => {
-      // Phase 1: Car starts driving
-      setAnimationPhase('driving');
-
-      // Phase 2: Smoke accumulating (starts shortly after car moves)
-      setTimeout(() => setAnimationPhase('smoke'), 800);
-
-      // Phase 3: Reveal text from smoke
-      setTimeout(() => setAnimationPhase('reveal'), 2500);
-
-      // Phase 4: Settle to idle state
-      setTimeout(() => setAnimationPhase('idle'), 4000);
-    };
-
-    // Slight delay on mount
-    const timer = setTimeout(sequence, 500);
+    // Sync text reveal with video timing (adjust delay to match specific video action)
+    const timer = setTimeout(() => {
+      setShowText(true);
+    }, 2000); // Reveals text 2 seconds into the video
     return () => clearTimeout(timer);
   }, []);
 
@@ -139,32 +103,32 @@ export const HeroSection = () => {
 
           {/* Main Heading */}
           <motion.h1
-            variants={container}
-            initial="hidden"
-            animate={animationPhase === 'reveal' || animationPhase === 'idle' ? "show" : "hidden"}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
+            initial={{ opacity: 0, filter: "blur(20px)", scale: 0.9 }}
+            animate={showText ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, filter: "blur(20px)", scale: 0.9 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text mix-blend-overlay"
           >
             <div className="overflow-hidden">
-              <motion.div variants={item} className="flex gap-4 justify-center text-foreground">
+              <div className="flex gap-4 justify-center text-foreground">
                 <span>We</span>
                 <span>Help</span>
                 <span>Brands</span>
-              </motion.div>
+              </div>
             </div>
             <div className="overflow-hidden">
-              <motion.div variants={item} className="flex gap-4 justify-center items-center">
+              <div className="flex gap-4 justify-center items-center">
                 <span className="text-gradient">Bloom</span>
                 <span className="text-3xl md:text-5xl align-middle text-muted-foreground/60">&</span>
                 <span className="text-gradient">Thrive</span>
-              </motion.div>
+              </div>
             </div>
           </motion.h1>
 
           {/* Subheading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={animationPhase === 'reveal' || animationPhase === 'idle' ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            animate={showText ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.5 }} // Slight delay after heading
             className="max-w-2xl mx-auto mb-10"
           >
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -194,72 +158,30 @@ export const HeroSection = () => {
             </Button>
           </motion.div>
         </div>
-
-
       </div>
 
-      {/* Cinematic Car & Smoke Animation */}
-      <AnimatePresence>
-        {animationPhase !== 'idle' && (
-          <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden flex items-end">
+      {/* Cinematic Video Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        {/* Placeholder Message for User */}
+        <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
+          Use your 3D Render Video Here
+        </div>
 
-            {/* Cinematic Fog/Smoke Logic */}
-            {(animationPhase === 'smoke' || animationPhase === 'reveal') && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                {[...Array(20)].map((_, i) => (
-                  <motion.div
-                    key={`smoke-${i}`}
-                    initial={{ opacity: 0, scale: 0.2, x: 0, y: 50 }}
-                    animate={{
-                      opacity: [0, 0.4, 0],
-                      scale: [0.5, 3 + Math.random() * 2, 4],
-                      x: (Math.random() - 0.5) * 500,
-                      y: -100 - Math.random() * 200,
-                    }}
-                    transition={{
-                      duration: 3 + Math.random(),
-                      delay: i * 0.1,
-                      ease: "easeOut"
-                    }}
-                    className="absolute w-64 h-64 rounded-full bg-white/10 blur-[80px]"
-                  />
-                ))}
-              </div>
-            )}
+        <video
+          autoPlay
+          muted
+          playsInline
+          loop={false}
+          className="absolute inset-0 w-full h-full object-cover opacity-80"
+          onLoadedData={() => setIsVideoLoaded(true)}
+        >
+          {/* REPLACE THIS SRC WITH YOUR OWN VIDEO URL */}
+          <source src="https://videos.pexels.com/video-files/5532772/5532772-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        </video>
 
-            {/* The Driving Car */}
-            <motion.div
-              initial={{ x: "-100vw", opacity: 0 }}
-              animate={{
-                x: ["-100vw", "120vw"],
-                opacity: [1, 1]
-              }}
-              transition={{
-                duration: 3.5,
-                ease: "easeInOut",
-                times: [0, 1]
-              }}
-              className="absolute bottom-10 w-[600px] md:w-[900px] z-40"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
-                alt="Cinematic Sports Car"
-                className="w-full h-auto object-contain drop-shadow-2xl"
-                style={{ filter: "brightness(0.8) contrast(1.2)" }}
-              />
-              {/* Exhaust Smoke Emitter (Simulated) */}
-              <div className="absolute bottom-5 right-10">
-                <motion.div
-                  animate={{ opacity: [0, 0.5, 0], scale: [0.5, 2] }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
-                  className="w-20 h-20 bg-white/20 blur-xl rounded-full"
-                />
-              </div>
-            </motion.div>
-
-          </div>
-        )}
-      </AnimatePresence>
+        {/* Overlay gradient to help text pop */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-90" />
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div
