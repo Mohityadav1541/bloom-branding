@@ -32,7 +32,7 @@ export const HeroSection = () => {
       <motion.div
         animate={{ y: [20, -20, 20] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 right-[20%] w-2 h-2 rounded-full bg-[#624A41]/80"
+        className="absolute top-1/3 right-[20%] w-2 h-2 rounded-full bg-primary/80"
       />
       <motion.div
         animate={{ y: [-15, 25, -15] }}
