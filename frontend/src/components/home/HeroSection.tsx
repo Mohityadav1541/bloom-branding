@@ -106,7 +106,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
             animate={showText ? { opacity: 1, scale: 1, filter: "blur(0px)" } : { opacity: 0, scale: 0.5, filter: "blur(10px)" }}
             transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }} // Spring-like "pop" effect
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text mix-blend-overlay"
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
           >
             <div className="overflow-hidden">
               <div className="flex gap-4 justify-center text-foreground">
@@ -161,7 +161,7 @@ export const HeroSection = () => {
       </div>
 
       {/* Cinematic Video Background - Camera Lens */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-gray-900">
         {/* Placeholder Message for User */}
         <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
           Use your Camera Shutter 3D Render Here
@@ -180,13 +180,13 @@ export const HeroSection = () => {
             className="w-full h-full object-cover opacity-100"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* High Contrast Camera Lens Video - Fallback to highly reliable source if needed */}
-            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+            {/* HD Camera Lens Video (Lighter file size for faster load) */}
+            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Very light overlay just for text readability - Minimal interference */}
-        <div className="absolute inset-0 bg-black/20" />
+        {/* Very light overlay just for text readability */}
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Scroll Indicator */}
