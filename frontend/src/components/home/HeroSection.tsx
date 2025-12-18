@@ -125,30 +125,37 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* 3D VFX Video Background - Abstract Tech Tunnel/Lens */}
+      {/* Cinematic Video Background - Camera Lens */}
       <div
-        className="absolute inset-0 z-0 overflow-hidden bg-black bg-cover bg-center"
+        className="absolute inset-0 z-0 overflow-hidden bg-gray-900 bg-cover bg-center"
+        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop")' }}
       >
+        {/* Placeholder Message for User */}
+        <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
+          Use your Camera Shutter 3D Render Here
+        </div>
+
         <motion.div
           className="absolute inset-0 w-full h-full"
-          animate={{ filter: showText ? "blur(5px) brightness(0.4)" : "blur(0px) brightness(1)" }} // Dim background on reveal
+          // Removed brightness dimming to keep camera visible as per "background remain same"
+          animate={{ filter: showText ? "blur(4px)" : "blur(0px)" }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <video
             autoPlay
             muted
             playsInline
-            loop
+            loop={false}
             className="w-full h-full object-cover opacity-100"
-            poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
+            poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* 3D VFX Abstract Tech/Lens Video */}
-            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+            {/* Reverted to Reliable HD Camera Lens Video */}
+            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Cinematic VFX Overlays */}
+        {/* Keep the VFX Noise but lightweight */}
         <div className="absolute inset-0 bg-black/20 pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
       </div>
