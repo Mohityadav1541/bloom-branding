@@ -30,7 +30,7 @@ export const Navbar = () => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center"
+              className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 flex items-center justify-center"
             >
               <span className="font-display font-bold text-white text-xl drop-shadow-md">B</span>
             </motion.div>
