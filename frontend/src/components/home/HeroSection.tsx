@@ -161,7 +161,10 @@ export const HeroSection = () => {
       </div>
 
       {/* Cinematic Video Background - Camera Lens */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-gray-900">
+      <div
+        className="absolute inset-0 z-0 overflow-hidden bg-gray-900 bg-cover bg-center"
+        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop")' }}
+      >
         {/* Placeholder Message for User */}
         <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
           Use your Camera Shutter 3D Render Here
@@ -178,6 +181,7 @@ export const HeroSection = () => {
             playsInline
             loop={false}
             className="w-full h-full object-cover opacity-100"
+            poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
             {/* HD Camera Lens Video (Lighter file size for faster load) */}
