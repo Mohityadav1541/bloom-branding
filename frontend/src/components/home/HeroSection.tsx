@@ -10,10 +10,10 @@ export const HeroSection = () => {
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-    // Sync text reveal with video timing (adjust delay to match specific video action)
+    // Sync text reveal with video shutter timing
     const timer = setTimeout(() => {
       setShowText(true);
-    }, 2000); // Reveals text 2 seconds into the video
+    }, 1200); // Trigger "pop" at 1.2s (shutter click simulation)
     return () => clearTimeout(timer);
   }, []);
 
@@ -101,11 +101,11 @@ export const HeroSection = () => {
             <span className="text-sm text-muted-foreground">Creative Branding Studio</span>
           </motion.div>
 
-          {/* Main Heading */}
+          {/* Main Heading - Pops out from "Lens" */}
           <motion.h1
-            initial={{ opacity: 0, filter: "blur(20px)", scale: 0.9 }}
-            animate={showText ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, filter: "blur(20px)", scale: 0.9 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+            animate={showText ? { opacity: 1, scale: 1, filter: "blur(0px)" } : { opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }} // Spring-like "pop" effect
             className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text mix-blend-overlay"
           >
             <div className="overflow-hidden">
@@ -140,7 +140,7 @@ export const HeroSection = () => {
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={showText ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
@@ -160,27 +160,33 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Cinematic Video Background */}
+      {/* Cinematic Video Background - Camera Lens */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
         {/* Placeholder Message for User */}
         <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
-          Use your 3D Render Video Here
+          Use your Camera Shutter 3D Render Here
         </div>
 
-        <video
-          autoPlay
-          muted
-          playsInline
-          loop={false}
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
-          onLoadedData={() => setIsVideoLoaded(true)}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          animate={{ filter: showText ? "blur(8px)" : "blur(0px)" }} // Blur background after text reveal
+          transition={{ duration: 1.5, ease: "easeOut" }}
         >
-          {/* REPLACE THIS SRC WITH YOUR OWN VIDEO URL */}
-          <source src="https://videos.pexels.com/video-files/5532772/5532772-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-        </video>
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop={false}
+            className="w-full h-full object-cover opacity-60"
+            onLoadedData={() => setIsVideoLoaded(true)}
+          >
+            {/* Placeholder: Camera Lens/Tech Abstract */}
+            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_24fps.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
 
-        {/* Overlay gradient to help text pop */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-90" />
+        {/* Deep overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-background/20" />
       </div>
 
       {/* Scroll Indicator */}
