@@ -32,7 +32,7 @@ export const Navbar = () => {
               transition={{ duration: 0.6 }}
               className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center"
             >
-              {/* Removed "B" letter as per request */}
+              <span className="font-display font-bold text-white text-xl drop-shadow-md">B</span>
             </motion.div>
             <span className="font-display text-xl font-semibold text-foreground">
               Bloom<span className="text-primary">.</span>
