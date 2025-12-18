@@ -18,7 +18,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -169,7 +169,7 @@ export const HeroSection = () => {
 
         <motion.div
           className="absolute inset-0 w-full h-full"
-          animate={{ filter: showText ? "blur(8px)" : "blur(0px)" }} // Blur background after text reveal
+          animate={{ filter: showText ? "blur(4px)" : "blur(0px)" }} // Reduced blur
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <video
@@ -177,16 +177,16 @@ export const HeroSection = () => {
             muted
             playsInline
             loop={false}
-            className="w-full h-full object-cover opacity-80"
+            className="w-full h-full object-cover opacity-100"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* Reliable Camera Lens Placeholder */}
-            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            {/* High Contrast Camera Lens Video - Fallback to highly reliable source if needed */}
+            <source src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_24fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Lighter overlay for better visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
+        {/* Very light overlay just for text readability - Minimal interference */}
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       {/* Scroll Indicator */}
