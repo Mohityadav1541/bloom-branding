@@ -79,7 +79,7 @@ export const TestimonialsSection = () => {
               </div>
 
               {/* Content */}
-              <p className="text-lg md:text-xl text-[#e8e6d8] leading-relaxed mt-4 mb-8 font-body">
+              <p className="text-lg md:text-xl text-foreground leading-relaxed mt-4 mb-8 font-body">
                 "{testimonials[current].content}"
               </p>
 
