@@ -28,9 +28,9 @@ export const Navbar = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
             <img
-              src="/logo-new.png"
+              src="/logo-bb.jpg"
               alt="Bloom Studio"
-              className="h-12 w-auto object-contain"
+              className="h-12 w-12 rounded-full object-contain"
             />
 
           </Link>
