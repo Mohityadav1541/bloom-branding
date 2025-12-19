@@ -27,16 +27,12 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 flex items-center justify-center"
-            >
-              <span className="font-display font-bold text-white text-xl drop-shadow-md">B</span>
-            </motion.div>
-            <span className="font-display text-xl font-semibold text-foreground">
-              Bloom<span className="text-primary">.</span>
-            </span>
+            <img
+              src="/logo-new.png"
+              alt="Bloom Studio"
+              className="h-12 w-auto object-contain"
+            />
+
           </Link>
 
           {/* Desktop Navigation */}
