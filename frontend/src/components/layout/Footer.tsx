@@ -113,7 +113,14 @@ export const Footer = () => {
                 <MapPin size={18} className="text-primary mt-1" />
                 <div>
                   <p className="text-sm text-muted-foreground">Based in</p>
-                  <p className="text-foreground">Jaipur, India</p>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Jaipur,+India"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground hover:text-primary transition-colors"
+                  >
+                    Jaipur, India
+                  </a>
                 </div>
               </div>
             </div>
