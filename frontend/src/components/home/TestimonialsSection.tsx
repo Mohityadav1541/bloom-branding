@@ -31,9 +31,19 @@ const testimonials = [
 
 export const TestimonialsSection = () => {
   const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const next = () => setCurrent((prev) => (prev + 1) % testimonials.length);
   const prev = () => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+
+  useEffect(() => {
+    if (!isPaused) {
+      const interval = setInterval(() => {
+        next();
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [isPaused]);
 
   return (
     <section className="py-24 bg-card/30">
@@ -69,7 +79,8 @@ export const TestimonialsSection = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-              className="bg-card rounded-3xl p-8 md:p-12 border border-border relative"
+              onClick={() => setIsPaused(true)}
+              className="bg-card rounded-3xl p-8 md:p-12 border border-border relative cursor-pointer"
             >
               {/* Quote Icon */}
               <div className="absolute -top-6 left-8">
