@@ -27,15 +27,17 @@ export const Footer = () => {
           {/* Brand */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-accent to-secondary flex items-center justify-center">
-                <span className="font-display font-bold text-primary-foreground text-lg">B</span>
-              </div>
+              <img
+                src="/logo-bb.jpg"
+                alt="Bloom Studio"
+                className="h-12 w-12 rounded-full object-contain"
+              />
               <span className="font-display text-xl font-semibold text-foreground">
                 Bloom<span className="text-primary">.</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              A creative branding studio helping brands grow through strategic storytelling 
+              A creative branding studio helping brands grow through strategic storytelling
               and high-impact digital experiences.
             </p>
             <div className="flex gap-4">
