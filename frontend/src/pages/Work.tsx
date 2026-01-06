@@ -16,29 +16,33 @@ const projects = [
     id: 1,
     title: "Jewellery Brands",
     category: "Jewellery",
-    description: "Dhruv Gems, AMBC Gems, Vardhaman Diam",
+    description: "Premium gemstone branding and visual identity for leading manufacturers.",
     image: portfolioJewellery,
+    subProjects: ["Dhruv Gems", "AMBC Gems", "Vardhaman Diam", "Sapphiri"]
   },
   {
     id: 2,
     title: "Fashion & Couture",
     category: "Fashion",
-    description: "The Right Cut, Binal Patel, SubhRekha, Mansi Nagdev",
+    description: " Contemporary and traditional fashion label positioning.",
     image: portfolioFashion,
+    subProjects: ["The Right Cut", "Binal Patel", "SubhRekha", "Mansi Nagdev"]
   },
   {
     id: 3,
     title: "Lifestyle Collection",
     category: "Lifestyle",
-    description: "Life's A Beach, ShoP, B'there Innerwear",
+    description: "Vibrant branding for accessories and lifestyle products.",
     image: portfolioAccessories,
+    subProjects: ["Life's A Beach", "ShoP", "B'there Innerwear"]
   },
   {
     id: 4,
     title: "Hospitality & Dining",
     category: "Hospitality",
-    description: "Thyme & Whisk, Kaffyn, Amar – Fastfood Center",
+    description: "Culinary brand experiences and cafe identities.",
     image: portfolioCafe,
+    subProjects: ["Thyme & Whisk", "Kaffyn", "Amar – Fastfood Center"]
   },
 ];
 
