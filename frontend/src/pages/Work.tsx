@@ -157,7 +157,7 @@ const Work = () => {
         </section>
 
         {/* Filter */}
-        <section className="py-8 sticky top-20 z-40 bg-background/80 backdrop-blur-md border-b border-border/50">
+        <section className="py-2 sticky top-20 z-40 bg-background/80 backdrop-blur-md border-b border-border/50">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -195,8 +195,8 @@ const Work = () => {
                     exit={{ opacity: 0, scale: 0.9, y: 20 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                     className={`group cursor-pointer ${index === 0 || index === 3 || index === 7
-                        ? 'md:col-span-2 aspect-[16/9]'
-                        : 'md:col-span-1 aspect-[4/5]'
+                      ? 'md:col-span-2 aspect-[16/9]'
+                      : 'md:col-span-1 aspect-[4/5]'
                       }`}
                   >
                     <div className="relative w-full h-full overflow-hidden rounded-3xl bg-muted shadow-sm hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 border border-border/50">
