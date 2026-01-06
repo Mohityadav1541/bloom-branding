@@ -156,79 +156,76 @@ const Work = () => {
                     viewport={{ once: true, margin: "-10%" }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="relative group w-full"
+                    className="w-full"
                   >
-                    <div className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''
-                      }`}>
+                    <div
+                      className={`flex flex-col md:flex-row items-stretch min-h-[500px] group cursor-pointer ${index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                        }`}
+                      onClick={() => setSelectedProject(project)}
+                    >
 
-                      {/* Image Section */}
-                      <div
-                        className="w-full md:w-3/5 lg:w-2/3 aspect-[16/10] relative rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 cursor-pointer"
-                        onClick={() => setSelectedProject(project)}
-                      >
+                      {/* Image Section (50%) */}
+                      <div className="w-full md:w-1/2 relative overflow-hidden">
                         <motion.div
-                          className="absolute inset-0 bg-muted"
+                          className="w-full h-full"
                           whileHover={{ scale: 1.05 }}
-                          transition={{ duration: 1 }}
+                          transition={{ duration: 0.7, ease: "easeOut" }}
                         >
                           <img
                             src={project.image}
                             alt={project.title}
                             className="w-full h-full object-cover"
                           />
-                          {/* Image Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                          {/* Overlay for depth */}
+                          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
                         </motion.div>
-
-                        {/* Mobile Text (Visible only on small screens) */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 md:hidden bg-gradient-to-t from-black/90 to-transparent">
-                          <span className="text-primary text-xs uppercase tracking-widest font-bold mb-2 block">
-                            {project.category}
-                          </span>
-                          <h3 className="text-2xl font-display font-bold text-white">
-                            {project.title}
-                          </h3>
-                        </div>
                       </div>
 
-                      {/* Content Card (Desktop) */}
-                      <div className={`hidden md:flex w-full md:w-2/5 lg:w-1/3 flex-col relative z-10 ${index % 2 === 1 ? 'pr-8 md:-mr-12 lg:-mr-20' : 'pl-8 md:-ml-12 lg:-ml-20'
-                        }`}>
-                        <motion.div
-                          className="bg-card/90 backdrop-blur-xl border border-white/10 p-8 lg:p-12 rounded-3xl shadow-xl dark:shadow-black/50 overflow-hidden relative group-hover:border-primary/50 transition-colors duration-500 cursor-pointer"
-                          initial={{ opacity: 0, x: index % 2 === 1 ? -50 : 50 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3, duration: 0.6 }}
-                          whileHover={{ y: -5 }}
-                          onClick={() => setSelectedProject(project)}
-                        >
-                          {/* Decorative background glow */}
-                          <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 blur-3xl rounded-full" />
+                      {/* Text Section (50%) */}
+                      <div className="w-full md:w-1/2 bg-card flex flex-col justify-center p-12 md:p-24 relative z-10">
+                        <div className={`flex flex-col ${index % 2 === 1 ? 'md:items-end md:text-right' : 'md:items-start md:text-left'}`}>
+                          <motion.span
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-primary text-xs uppercase tracking-[0.25em] font-bold mb-6"
+                          >
+                            {project.category}
+                          </motion.span>
 
-                          <div className="relative z-10">
-                            <div className="flex items-center gap-4 mb-6">
-                              <span className="w-12 h-[1px] bg-primary"></span>
-                              <span className="text-primary text-xs uppercase tracking-[0.2em] font-bold">
-                                {project.category}
-                              </span>
+                          <motion.h3
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-tight group-hover:text-primary transition-colors duration-300"
+                          >
+                            {project.title}
+                          </motion.h3>
+
+                          <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-lg"
+                          >
+                            {project.description}
+                          </motion.p>
+
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-foreground group/link"
+                          >
+                            <span className="relative overflow-hidden">
+                              <span className="inline-block transition-transform duration-300 group-hover:translate-y-[-100%]">View Project</span>
+                              <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-primary">View Project</span>
+                            </span>
+                            <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                              <ArrowUpRight className="h-4 w-4" />
                             </div>
-
-                            <h3 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
-                              {project.title}
-                            </h3>
-
-                            <p className="text-muted-foreground text-sm lg:text-base leading-relaxed mb-8 border-l-2 border-primary/20 pl-4">
-                              {project.description}
-                            </p>
-
-                            <div className="flex items-center gap-3 text-sm font-medium text-foreground group/link cursor-pointer hover:text-primary transition-colors">
-                              <span>View Project</span>
-                              <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover/link:bg-primary group-hover/link:text-primary-foreground group-hover/link:border-primary transition-all duration-300">
-                                <ArrowUpRight className="h-4 w-4" />
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
+                          </motion.div>
+                        </div>
                       </div>
 
                     </div>
