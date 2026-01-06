@@ -170,8 +170,8 @@ const Work = () => {
                   key={category}
                   onClick={() => setActiveCategory(category)}
                   className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
-                      : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
+                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                 >
                   {category}
@@ -194,36 +194,53 @@ const Work = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 20 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="group cursor-pointer"
+                    className={`group cursor-pointer ${index === 0 || index === 3 || index === 7
+                        ? 'md:col-span-2 aspect-[16/9]'
+                        : 'md:col-span-1 aspect-[4/5]'
+                      }`}
                   >
-                    <div className="relative overflow-hidden rounded-3xl aspect-[4/5] bg-muted shadow-sm hover:shadow-xl transition-all duration-500 border border-border/50">
+                    <div className="relative w-full h-full overflow-hidden rounded-3xl bg-muted shadow-sm hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 border border-border/50">
                       <motion.img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.08 }}
-                        transition={{ duration: 0.7 }}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                       />
 
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                      {/* Premium Overlay - Dark radial gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
-                      {/* Glassmorphism Content Card */}
-                      <div className="absolute inset-x-4 bottom-4 p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <span className="text-primary-foreground/80 text-xs uppercase tracking-wider font-medium mb-2 block">
-                              {project.category}
-                            </span>
-                            <h3 className="font-display text-2xl font-bold text-white mb-2 leading-tight">
-                              {project.title}
-                            </h3>
-                            <p className="text-white/70 text-sm line-clamp-2">
-                              {project.description}
-                            </p>
-                          </div>
-                          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                            <ArrowUpRight className="h-5 w-5" />
+                      {/* Floating Content */}
+                      <div className="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <div className="relative z-10">
+                          {/* Decorative Line */}
+                          <motion.div
+                            className="w-12 h-1 bg-primary mb-4 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: 48 }}
+                            transition={{ delay: 0.2 }}
+                          />
+
+                          <span className="text-primary-foreground/90 text-xs tracking-[0.2em] uppercase font-medium mb-3 block opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            {project.category}
+                          </span>
+
+                          <div className="flex justify-between items-end gap-4">
+                            <div>
+                              <h3 className={`font-display font-bold text-white mb-2 leading-tight ${index === 0 || index === 3 || index === 7 ? 'text-3xl md:text-4xl' : 'text-2xl'
+                                }`}>
+                                {project.title}
+                              </h3>
+                              <p className="text-white/80 text-sm md:text-base line-clamp-2 max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                                {project.description}
+                              </p>
+                            </div>
+
+                            <motion.div
+                              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-300"
+                              whileHover={{ rotate: 45 }}
+                            >
+                              <ArrowUpRight className="h-5 w-5" />
+                            </motion.div>
                           </div>
                         </div>
                       </div>
