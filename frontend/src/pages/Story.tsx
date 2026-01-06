@@ -75,21 +75,21 @@ const Story = () => {
                 className="space-y-6"
               >
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  <span className="text-foreground font-semibold">Bloom Branding</span> was 
-                  born from a simple belief: every brand has a unique story waiting to unfold. 
-                  Founded with a passion for creative excellence, we set out to help businesses 
+                  <span className="text-foreground font-semibold">Bloom Branding</span> was
+                  born from a simple belief: every brand has a unique story waiting to unfold.
+                  Founded with a passion for creative excellence, we set out to help businesses
                   transform their identity into something truly remarkable.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Like a seed that grows into a beautiful flower, we nurture brands through 
-                  strategic thinking and creative execution. Our approach combines data-driven 
-                  insights with artistic vision, ensuring every project we undertake blossoms 
+                  Like a seed that grows into a beautiful flower, we nurture brands through
+                  strategic thinking and creative execution. Our approach combines data-driven
+                  insights with artistic vision, ensuring every project we undertake blossoms
                   into its full potential.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Over the years, we've had the privilege of working with startups finding 
-                  their voice, established businesses seeking reinvention, and visionaries 
-                  ready to make their mark. Each collaboration has taught us that the best 
+                  Over the years, we've had the privilege of working with startups finding
+                  their voice, established businesses seeking reinvention, and visionaries
+                  ready to make their mark. Each collaboration has taught us that the best
                   brands are built on authentic stories and meaningful connections.
                 </p>
               </motion.div>
@@ -121,48 +121,92 @@ const Story = () => {
 
         {/* Vision & Mission */}
         <section className="py-24 bg-card/30">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="container mx-auto px-6 space-y-24">
+
+            {/* Vision Section (Text Right, Image Left) */}
+            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="p-8 md:p-12 rounded-3xl border border-border bg-card"
+                transition={{ duration: 0.6 }}
+                className="w-full md:w-1/2"
               >
-                <span className="text-primary text-sm uppercase tracking-widest font-medium">
-                  Our Vision
-                </span>
-                <h2 className="font-display text-3xl font-semibold mt-4 mb-4">
-                  Creating Impact Through Design
-                </h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  We envision a world where every brand has the opportunity to tell its 
-                  story authentically. Through innovative design and strategic thinking, 
-                  we aim to be the catalyst that transforms ordinary businesses into 
-                  extraordinary brands.
-                </p>
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
+                  {/* Placeholder or reuse team/founder photo if no specific vision image provided */}
+                  <img
+                    src={teamPhoto}
+                    alt="Our Vision"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
+                </div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="p-8 md:p-12 rounded-3xl border border-border bg-card"
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="w-full md:w-1/2"
               >
-                <span className="text-primary text-sm uppercase tracking-widest font-medium">
+                <span className="text-primary text-sm uppercase tracking-widest font-bold mb-4 block">
+                  Our Vision
+                </span>
+                <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                  Creating Impact<br />
+                  <span className="text-gradient">Through Design</span>
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  We envision a world where every brand has the opportunity to tell its
+                  story authentically. Through innovative design and strategic thinking,
+                  we aim to be the catalyst that transforms ordinary businesses into
+                  extraordinary brands.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Mission Section (Text Left, Image Right) */}
+            <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="w-full md:w-1/2"
+              >
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
+                  <img
+                    src={founderPhoto}
+                    alt="Our Mission"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="w-full md:w-1/2 md:text-right"
+              >
+                <span className="text-primary text-sm uppercase tracking-widest font-bold mb-4 block">
                   Our Mission
                 </span>
-                <h2 className="font-display text-3xl font-semibold mt-4 mb-4">
-                  Empowering Brands to Bloom
+                <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                  Empowering Brands<br />
+                  <span className="text-gradient">To Bloom</span>
                 </h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  Our mission is to empower brands with the creative tools and strategies 
-                  they need to flourish. We're committed to delivering work that not only 
+                <p className="text-lg text-muted-foreground leading-relaxed ml-auto">
+                  Our mission is to empower brands with the creative tools and strategies
+                  they need to flourish. We're committed to delivering work that not only
                   looks beautiful but drives real business results and lasting connections.
                 </p>
               </motion.div>
             </div>
+
           </div>
         </section>
 
@@ -252,18 +296,18 @@ const Story = () => {
                 </h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
                   <p>
-                    With over a decade of experience in branding and creative direction, 
-                    our founder started Bloom Branding with a vision to create a studio 
+                    With over a decade of experience in branding and creative direction,
+                    our founder started Bloom Branding with a vision to create a studio
                     where creativity meets strategy.
                   </p>
                   <p>
-                    Having worked with brands across industries—from tech startups to 
-                    luxury fashion—the journey has been one of constant learning, 
+                    Having worked with brands across industries—from tech startups to
+                    luxury fashion—the journey has been one of constant learning,
                     experimentation, and growth.
                   </p>
                   <p>
-                    "I believe that great branding isn't just about aesthetics—it's about 
-                    understanding the soul of a business and translating it into visual 
+                    "I believe that great branding isn't just about aesthetics—it's about
+                    understanding the soul of a business and translating it into visual
                     experiences that resonate with people."
                   </p>
                 </div>
