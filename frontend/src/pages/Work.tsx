@@ -114,71 +114,93 @@ const Work = () => {
         {/* Projects Grid */}
         <section className="py-12 pb-24">
           <div className="container mx-auto px-6">
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-col gap-24 md:gap-32">
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((project, index) => (
                   <motion.div
                     key={project.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className={`group cursor-pointer ${index === 0 || index === 3 || index === 7
-                      ? 'md:col-span-2 aspect-[16/9]'
-                      : 'md:col-span-1 aspect-[4/5]'
-                      }`}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="relative group w-full"
                   >
-                    <div className="relative w-full h-full overflow-hidden rounded-3xl bg-muted shadow-sm hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 border border-border/50">
-                      <motion.img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                      />
+                    <div className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                      }`}>
 
-                      {/* Premium Overlay - Dark radial gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-
-                      {/* Floating Content */}
-                      <div className="absolute inset-0 p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <div className="relative z-10">
-                          {/* Decorative Line */}
-                          <motion.div
-                            className="w-12 h-1 bg-primary mb-4 rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: 48 }}
-                            transition={{ delay: 0.2 }}
+                      {/* Image Section */}
+                      <div className="w-full md:w-3/5 lg:w-2/3 aspect-[16/10] relative rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700">
+                        <motion.div
+                          className="absolute inset-0 bg-muted"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 1 }}
+                        >
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
                           />
+                          {/* Image Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+                        </motion.div>
 
-                          <span className="text-primary-foreground/90 text-xs tracking-[0.2em] uppercase font-medium mb-3 block opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                        {/* Mobile Text (Visible only on small screens) */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:hidden bg-gradient-to-t from-black/90 to-transparent">
+                          <span className="text-primary text-xs uppercase tracking-widest font-bold mb-2 block">
                             {project.category}
                           </span>
-
-                          <div className="flex justify-between items-end gap-4">
-                            <div>
-                              <h3 className={`font-display font-bold text-white mb-2 leading-tight ${index === 0 || index === 3 || index === 7 ? 'text-3xl md:text-4xl' : 'text-2xl'
-                                }`}>
-                                {project.title}
-                              </h3>
-                              <p className="text-white/80 text-sm md:text-base line-clamp-2 max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                                {project.description}
-                              </p>
-                            </div>
-
-                            <motion.div
-                              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-300"
-                              whileHover={{ rotate: 45 }}
-                            >
-                              <ArrowUpRight className="h-5 w-5" />
-                            </motion.div>
-                          </div>
+                          <h3 className="text-2xl font-display font-bold text-white">
+                            {project.title}
+                          </h3>
                         </div>
                       </div>
+
+                      {/* Content Card (Desktop) */}
+                      <div className={`hidden md:flex w-full md:w-2/5 lg:w-1/3 flex-col relative z-10 ${index % 2 === 1 ? 'pr-8 md:-mr-12 lg:-mr-20' : 'pl-8 md:-ml-12 lg:-ml-20'
+                        }`}>
+                        <motion.div
+                          className="bg-card/90 backdrop-blur-xl border border-white/10 p-8 lg:p-12 rounded-3xl shadow-xl dark:shadow-black/50 overflow-hidden relative group-hover:border-primary/50 transition-colors duration-500"
+                          initial={{ opacity: 0, x: index % 2 === 1 ? -50 : 50 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3, duration: 0.6 }}
+                          whileHover={{ y: -5 }}
+                        >
+                          {/* Decorative background glow */}
+                          <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 blur-3xl rounded-full" />
+
+                          <div className="relative z-10">
+                            <div className="flex items-center gap-4 mb-6">
+                              <span className="w-12 h-[1px] bg-primary"></span>
+                              <span className="text-primary text-xs uppercase tracking-[0.2em] font-bold">
+                                {project.category}
+                              </span>
+                            </div>
+
+                            <h3 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight">
+                              {project.title}
+                            </h3>
+
+                            <p className="text-muted-foreground text-sm lg:text-base leading-relaxed mb-8 border-l-2 border-primary/20 pl-4">
+                              {project.description}
+                            </p>
+
+                            <div className="flex items-center gap-3 text-sm font-medium text-foreground group/link cursor-pointer hover:text-primary transition-colors">
+                              <span>View Project</span>
+                              <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover/link:bg-primary group-hover/link:text-primary-foreground group-hover/link:border-primary transition-all duration-300">
+                                <ArrowUpRight className="h-4 w-4" />
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+
                     </div>
                   </motion.div>
                 ))}
               </AnimatePresence>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>
