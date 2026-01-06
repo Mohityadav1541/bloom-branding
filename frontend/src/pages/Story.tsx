@@ -351,9 +351,9 @@ const Story = () => {
                 </div>
                 <div className="mt-8">
                   <img
-                    src="/signature.png"
-                    alt="Signature"
-                    className="h-12 opacity-80"
+                    src={signature}
+                    alt="Pranjal Jain Signature"
+                    className="h-16 opacity-80 mix-blend-multiply dark:mix-blend-screen invert dark:invert-0"
                   />
                 </div>
               </motion.div>
