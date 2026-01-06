@@ -4,87 +4,125 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ArrowUpRight } from "lucide-react";
-import portfolioCoffee from "@/assets/portfolio-coffee.jpg";
-import portfolioFashion from "@/assets/portfolio-fashion.jpg";
-import portfolioGreen from "@/assets/portfolio-green.jpg";
-import portfolioTech from "@/assets/portfolio-tech.jpg";
-import portfolioWellness from "@/assets/portfolio-wellness.jpg";
-import portfolioRestaurant from "@/assets/portfolio-restaurant.jpg";
-import portfolioFitness from "@/assets/portfolio-fitness.jpg";
-import portfolioBrewery from "@/assets/portfolio-brewery.jpg";
+import portfolioJewellery from "@/assets/portfolio-jewellery.png";
+import portfolioFashion from "@/assets/portfolio-fashion.png";
+import portfolioAccessories from "@/assets/portfolio-accessories.png";
+import portfolioCafe from "@/assets/portfolio-cafe.png";
 
-const categories = ["All", "Brand Identity", "Digital Campaign", "Social Media", "Production"];
+const categories = ["All", "Jewellery", "Fashion", "Lifestyle", "Hospitality"];
 
 const projects = [
+  // Jewellery
   {
     id: 1,
-    title: "Artisan Coffee Co.",
-    category: "Brand Identity",
-    description: "Complete brand overhaul for a specialty coffee roaster",
-    image: portfolioCoffee,
+    title: "Dhruv Gems",
+    category: "Jewellery",
+    description: "Premium gemstone branding and visual identity",
+    image: portfolioJewellery,
   },
   {
     id: 2,
-    title: "Luxe Fashion House",
-    category: "Digital Campaign",
-    description: "Launch campaign for premium fashion collection",
-    image: portfolioFashion,
+    title: "AMBC Gems",
+    category: "Jewellery",
+    description: "Luxury diamond manufacturing identity",
+    image: portfolioJewellery,
   },
   {
     id: 3,
-    title: "Green Earth Initiative",
-    category: "Social Media",
-    description: "Awareness campaign for environmental sustainability",
-    image: portfolioGreen,
+    title: "Vardhaman Diam",
+    category: "Jewellery",
+    description: "Global diamond export brand strategy",
+    image: portfolioJewellery,
   },
+
+  // Fashion
   {
     id: 4,
-    title: "Tech Startup Launch",
-    category: "Brand Identity",
-    description: "Full branding for innovative tech company",
-    image: portfolioTech,
+    title: "The Right Cut",
+    category: "Fashion",
+    description: "Contemporary fashion label positioning",
+    image: portfolioFashion,
   },
   {
     id: 5,
-    title: "Wellness Retreat",
-    category: "Production",
-    description: "Brand film and photography for luxury wellness brand",
-    image: portfolioWellness,
+    title: "Binal Patel",
+    category: "Fashion",
+    description: "Designer couture brand identity",
+    image: portfolioFashion,
   },
   {
     id: 6,
-    title: "Urban Eats",
-    category: "Social Media",
-    description: "Social media strategy and content for restaurant chain",
-    image: portfolioRestaurant,
+    title: "SubhRekha",
+    category: "Fashion",
+    description: "Traditional textile brand modernization",
+    image: portfolioFashion,
   },
   {
     id: 7,
-    title: "Fitness Revolution",
-    category: "Digital Campaign",
-    description: "Digital launch campaign for fitness app",
-    image: portfolioFitness,
+    title: "Mansi Nagdev",
+    category: "Fashion",
+    description: "Boutique fashion studio branding",
+    image: portfolioFashion,
   },
+
+  // Lifestyle
   {
     id: 8,
-    title: "Craft Brewery",
-    category: "Brand Identity",
-    description: "Brand identity for artisanal craft brewery",
-    image: portfolioBrewery,
+    title: "Life's A Beach",
+    category: "Lifestyle",
+    description: "Vibrant accessories and beachwear brand launch",
+    image: portfolioAccessories,
+  },
+  {
+    id: 9,
+    title: "ShoP",
+    category: "Lifestyle",
+    description: "Luxury sourcing and personal shopping brand",
+    image: portfolioAccessories,
+  },
+  {
+    id: 10,
+    title: "B'there",
+    category: "Lifestyle",
+    description: "Modern innerwear brand identity",
+    image: portfolioAccessories,
+  },
+
+  // Hospitality (Cafes)
+  {
+    id: 11,
+    title: "Thyme & Whisk",
+    category: "Hospitality",
+    description: "Culinary brand experience and cafe identity",
+    image: portfolioCafe,
+  },
+  {
+    id: 12,
+    title: "Kaffyn",
+    category: "Hospitality",
+    description: "Coffee shop and bistro branding",
+    image: portfolioCafe,
+  },
+  {
+    id: 13,
+    title: "Amar – Fastfood Center",
+    category: "Hospitality",
+    description: "QSR chain visual identity refresh",
+    image: portfolioCafe,
   },
 ];
 
 const Work = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredProjects = activeCategory === "All" 
-    ? projects 
+  const filteredProjects = activeCategory === "All"
+    ? projects
     : projects.filter(p => p.category === activeCategory);
 
   return (
     <PageTransition>
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24 bg-background min-h-screen">
         {/* Hero */}
         <section className="py-24 relative overflow-hidden">
           <div className="container mx-auto px-6">
@@ -111,7 +149,7 @@ const Work = () => {
                 transition={{ delay: 0.2 }}
                 className="text-lg text-muted-foreground leading-relaxed"
               >
-                Explore our portfolio of brand transformations, creative campaigns, 
+                Explore our portfolio of brand transformations, creative campaigns,
                 and digital experiences that have helped businesses flourish.
               </motion.p>
             </div>
@@ -119,7 +157,7 @@ const Work = () => {
         </section>
 
         {/* Filter */}
-        <section className="py-8">
+        <section className="py-8 sticky top-20 z-40 bg-background/80 backdrop-blur-md border-b border-border/50">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -131,11 +169,10 @@ const Work = () => {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeCategory === category
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
+                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    }`}
                 >
                   {category}
                 </button>
@@ -147,60 +184,49 @@ const Work = () => {
         {/* Projects Grid */}
         <section className="py-12 pb-24">
           <div className="container mx-auto px-6">
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((project, index) => (
                   <motion.div
                     key={project.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
                     className="group cursor-pointer"
                   >
-                    <div className="relative overflow-hidden rounded-2xl aspect-[4/3]">
+                    <div className="relative overflow-hidden rounded-3xl aspect-[4/5] bg-muted shadow-sm hover:shadow-xl transition-all duration-500 border border-border/50">
                       <motion.img
                         src={project.image}
                         alt={project.title}
                         className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.6 }}
+                        whileHover={{ scale: 1.08 }}
+                        transition={{ duration: 0.7 }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
-                      {/* Overlay Content */}
-                      <div className="absolute inset-0 p-8 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <span className="text-primary text-sm uppercase tracking-wider mb-2">
-                          {project.category}
-                        </span>
-                        <h3 className="font-display text-2xl font-semibold text-foreground mb-2">
-                          {project.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm">
-                          {project.description}
-                        </p>
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+
+                      {/* Glassmorphism Content Card */}
+                      <div className="absolute inset-x-4 bottom-4 p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-primary-foreground/80 text-xs uppercase tracking-wider font-medium mb-2 block">
+                              {project.category}
+                            </span>
+                            <h3 className="font-display text-2xl font-bold text-white mb-2 leading-tight">
+                              {project.title}
+                            </h3>
+                            <p className="text-white/70 text-sm line-clamp-2">
+                              {project.description}
+                            </p>
+                          </div>
+                          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                            <ArrowUpRight className="h-5 w-5" />
+                          </div>
+                        </div>
                       </div>
-
-                      {/* Arrow */}
-                      <motion.div
-                        className="absolute top-6 right-6 w-12 h-12 rounded-full bg-primary flex items-center justify-center opacity-0 group-hover:opacity-100"
-                        initial={{ scale: 0 }}
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowUpRight className="h-5 w-5 text-primary-foreground" />
-                      </motion.div>
-                    </div>
-
-                    {/* Info Below Image */}
-                    <div className="mt-4">
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                        {project.category}
-                      </p>
-                      <h3 className="font-display text-lg font-medium text-foreground mt-1">
-                        {project.title}
-                      </h3>
                     </div>
                   </motion.div>
                 ))}
