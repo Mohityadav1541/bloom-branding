@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -15,13 +15,35 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show if scrolling up or at the very top
+      if (currentScrollY < lastScrollY || currentScrollY < 50) {
+        setIsVisible(true);
+      }
+      // Hide if scrolling down and past the header
+      else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <motion.nav
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-border/50"
     >
       <div className="container mx-auto px-6 py-4">
