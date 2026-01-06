@@ -9,26 +9,26 @@ import portfolioTech from "@/assets/portfolio-tech.jpg";
 const projects = [
   {
     id: 1,
-    title: "Artisan Coffee Co.",
-    category: "Brand Identity",
+    title: "Dhruv Gems",
+    category: "Jewellery Brand",
     image: portfolioCoffee,
   },
   {
     id: 2,
-    title: "Luxe Fashion House",
-    category: "Digital Campaign",
+    title: "The Right Cut",
+    category: "Fashion Brand",
     image: portfolioFashion,
   },
   {
     id: 3,
-    title: "Green Earth Initiative",
-    category: "Social Media",
+    title: "Life's A Beach",
+    category: "Accessories Brand",
     image: portfolioGreen,
   },
   {
     id: 4,
-    title: "Tech Startup Launch",
-    category: "Full Branding",
+    title: "Thyme & Whisk",
+    category: "Cafe & Restaurant",
     image: portfolioTech,
   },
 ];
@@ -95,7 +95,7 @@ export const PortfolioPreview = () => {
                     transition={{ duration: 0.6 }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Overlay Content */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <span className="text-primary text-sm uppercase tracking-wider mb-2">
