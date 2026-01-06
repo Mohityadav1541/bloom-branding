@@ -102,8 +102,8 @@ export const PortfolioPreview = () => {
           </motion.div>
         </div>
 
-        {/* Portfolio Grid - Uniform Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {/* Portfolio Gallery Grid (Text Below Image) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-x-12 lg:gap-y-20">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -111,37 +111,36 @@ export const PortfolioPreview = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500"
+              className="group cursor-pointer"
             >
-              <Link to="/work" className="block w-full h-full">
-                {/* Image Container with Parallax-like scale effect on hover */}
-                <div className="absolute inset-0 w-full h-full overflow-hidden">
+              <Link to="/work" className="block w-full">
+                {/* Image Container */}
+                <div className="relative overflow-hidden rounded-[2rem] aspect-[4/3] mb-6 shadow-sm border border-border/50">
                   <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
-                </div>
+                  {/* Subtle overlay only on hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
 
-                {/* Floating Tags & Button */}
-                <div className="absolute top-6 left-6 right-6 flex justify-between items-start opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-[-10px] group-hover:translate-y-0">
-                  <span className="bg-background/90 backdrop-blur-md text-foreground px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                  <div className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center shadow-lg transform rotate-[-45deg] group-hover:rotate-0 transition-all duration-500">
+                  {/* Floating View Arrow (On Context) */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur text-black rounded-full flex items-center justify-center shadow-lg transform translate-y-[-10px] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                     <ArrowUpRight className="h-5 w-5" />
                   </div>
                 </div>
 
-                {/* Bottom Content Area */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <h3 className="font-display text-3xl font-bold text-white mb-2">
-                      {project.title}
-                    </h3>
-                    <div className="h-1 w-0 bg-primary group-hover:w-full transition-all duration-700 ease-out" />
+                {/* Text Content (Outside/Below Image) */}
+                <div className="px-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-primary text-xs font-bold uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                    <div className="h-px flex-1 bg-border mx-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                   </div>
+                  <h3 className="font-display text-3xl font-medium text-foreground group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
                 </div>
               </Link>
             </motion.div>
@@ -149,7 +148,7 @@ export const PortfolioPreview = () => {
         </div>
 
         {/* Mobile View All Button */}
-        <div className="mt-12 text-center md:hidden">
+        <div className="mt-20 text-center md:hidden">
           <Link
             to="/work"
             className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-sm"
