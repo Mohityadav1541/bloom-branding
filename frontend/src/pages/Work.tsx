@@ -48,6 +48,7 @@ const projects = [
 
 const Work = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   const filteredProjects = activeCategory === "All"
     ? projects
@@ -135,7 +136,10 @@ const Work = () => {
                       }`}>
 
                       {/* Image Section */}
-                      <div className="w-full md:w-3/5 lg:w-2/3 aspect-[16/10] relative rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700">
+                      <div
+                        className="w-full md:w-3/5 lg:w-2/3 aspect-[16/10] relative rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary/20 transition-all duration-700 cursor-pointer"
+                        onClick={() => setSelectedProject(project)}
+                      >
                         <motion.div
                           className="absolute inset-0 bg-muted"
                           whileHover={{ scale: 1.05 }}
@@ -165,11 +169,12 @@ const Work = () => {
                       <div className={`hidden md:flex w-full md:w-2/5 lg:w-1/3 flex-col relative z-10 ${index % 2 === 1 ? 'pr-8 md:-mr-12 lg:-mr-20' : 'pl-8 md:-ml-12 lg:-ml-20'
                         }`}>
                         <motion.div
-                          className="bg-card/90 backdrop-blur-xl border border-white/10 p-8 lg:p-12 rounded-3xl shadow-xl dark:shadow-black/50 overflow-hidden relative group-hover:border-primary/50 transition-colors duration-500"
+                          className="bg-card/90 backdrop-blur-xl border border-white/10 p-8 lg:p-12 rounded-3xl shadow-xl dark:shadow-black/50 overflow-hidden relative group-hover:border-primary/50 transition-colors duration-500 cursor-pointer"
                           initial={{ opacity: 0, x: index % 2 === 1 ? -50 : 50 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.3, duration: 0.6 }}
                           whileHover={{ y: -5 }}
+                          onClick={() => setSelectedProject(project)}
                         >
                           {/* Decorative background glow */}
                           <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 blur-3xl rounded-full" />
@@ -207,6 +212,68 @@ const Work = () => {
             </div>
           </div>
         </section>
+        {/* Selected Project Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-card w-full max-w-2xl rounded-3xl overflow-hidden border border-border/50 shadow-2xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="relative h-48 md:h-64 overflow-hidden">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
+                    <div>
+                      <span className="text-primary font-bold text-sm uppercase tracking-wider mb-1 block">
+                        {selectedProject.category}
+                      </span>
+                      <h3 className="text-3xl font-display font-bold text-white">
+                        {selectedProject.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-primary hover:text-primary-foreground transition-colors"
+                  >
+                    <ArrowUpRight className="h-5 w-5 rotate-45" />
+                  </button>
+                </div>
+
+                <div className="p-8">
+                  <h4 className="font-display text-xl font-semibold mb-6 text-foreground">Featured Clients & Projects</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {selectedProject.subProjects?.map((sub, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="p-4 rounded-xl bg-muted/50 border border-border/50 flex items-center gap-3 hover:bg-muted transition-colors cursor-default"
+                      >
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <span className="font-medium text-foreground">{sub}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
       <Footer />
     </PageTransition>
