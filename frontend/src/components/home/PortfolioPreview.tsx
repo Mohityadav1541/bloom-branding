@@ -13,28 +13,24 @@ const projects = [
     title: "Dhruv Gems",
     category: "Jewellery Brand",
     image: portfolioJewellery,
-    size: "large" // Spans 2 columns on desktop
   },
   {
     id: 2,
     title: "The Right Cut",
     category: "Fashion Brand",
     image: portfolioFashion,
-    size: "small"
   },
   {
     id: 3,
     title: "Life's A Beach",
     category: "Accessories Brand",
     image: portfolioAccessories,
-    size: "small"
   },
   {
     id: 4,
     title: "Thyme & Whisk",
     category: "Cafe & Restaurant",
     image: portfolioCafe,
-    size: "large"
   },
 ];
 
@@ -106,8 +102,8 @@ export const PortfolioPreview = () => {
           </motion.div>
         </div>
 
-        {/* Portfolio Masonry Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 auto-rows-[400px] lg:auto-rows-[500px]">
+        {/* Portfolio Grid - Uniform Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -115,8 +111,7 @@ export const PortfolioPreview = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className={`group relative rounded-3xl overflow-hidden cursor-pointer ${project.size === "large" ? "md:col-span-2" : "md:col-span-1"
-                }`}
+              className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500"
             >
               <Link to="/work" className="block w-full h-full">
                 {/* Image Container with Parallax-like scale effect on hover */}
