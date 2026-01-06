@@ -12,102 +12,32 @@ import portfolioCafe from "@/assets/portfolio-cafe.png";
 const categories = ["All", "Jewellery", "Fashion", "Lifestyle", "Hospitality"];
 
 const projects = [
-  // Jewellery
   {
     id: 1,
-    title: "Dhruv Gems",
+    title: "Jewellery Brands",
     category: "Jewellery",
-    description: "Premium gemstone branding and visual identity",
+    description: "Dhruv Gems, AMBC Gems, Vardhaman Diam",
     image: portfolioJewellery,
   },
   {
     id: 2,
-    title: "AMBC Gems",
-    category: "Jewellery",
-    description: "Luxury diamond manufacturing identity",
-    image: portfolioJewellery,
+    title: "Fashion & Couture",
+    category: "Fashion",
+    description: "The Right Cut, Binal Patel, SubhRekha, Mansi Nagdev",
+    image: portfolioFashion,
   },
   {
     id: 3,
-    title: "Vardhaman Diam",
-    category: "Jewellery",
-    description: "Global diamond export brand strategy",
-    image: portfolioJewellery,
+    title: "Lifestyle Collection",
+    category: "Lifestyle",
+    description: "Life's A Beach, ShoP, B'there Innerwear",
+    image: portfolioAccessories,
   },
-
-  // Fashion
   {
     id: 4,
-    title: "The Right Cut",
-    category: "Fashion",
-    description: "Contemporary fashion label positioning",
-    image: portfolioFashion,
-  },
-  {
-    id: 5,
-    title: "Binal Patel",
-    category: "Fashion",
-    description: "Designer couture brand identity",
-    image: portfolioFashion,
-  },
-  {
-    id: 6,
-    title: "SubhRekha",
-    category: "Fashion",
-    description: "Traditional textile brand modernization",
-    image: portfolioFashion,
-  },
-  {
-    id: 7,
-    title: "Mansi Nagdev",
-    category: "Fashion",
-    description: "Boutique fashion studio branding",
-    image: portfolioFashion,
-  },
-
-  // Lifestyle
-  {
-    id: 8,
-    title: "Life's A Beach",
-    category: "Lifestyle",
-    description: "Vibrant accessories and beachwear brand launch",
-    image: portfolioAccessories,
-  },
-  {
-    id: 9,
-    title: "ShoP",
-    category: "Lifestyle",
-    description: "Luxury sourcing and personal shopping brand",
-    image: portfolioAccessories,
-  },
-  {
-    id: 10,
-    title: "B'there",
-    category: "Lifestyle",
-    description: "Modern innerwear brand identity",
-    image: portfolioAccessories,
-  },
-
-  // Hospitality (Cafes)
-  {
-    id: 11,
-    title: "Thyme & Whisk",
+    title: "Hospitality & Dining",
     category: "Hospitality",
-    description: "Culinary brand experience and cafe identity",
-    image: portfolioCafe,
-  },
-  {
-    id: 12,
-    title: "Kaffyn",
-    category: "Hospitality",
-    description: "Coffee shop and bistro branding",
-    image: portfolioCafe,
-  },
-  {
-    id: 13,
-    title: "Amar – Fastfood Center",
-    category: "Hospitality",
-    description: "QSR chain visual identity refresh",
+    description: "Thyme & Whisk, Kaffyn, Amar – Fastfood Center",
     image: portfolioCafe,
   },
 ];
