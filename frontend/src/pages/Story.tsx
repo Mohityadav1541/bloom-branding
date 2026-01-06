@@ -9,6 +9,7 @@ import founderPhoto from "@/assets/founder-photo.jpg";
 // Unique images for Vision & Mission
 import visionImage from "@/assets/portfolio-tech.jpg";
 import missionImage from "@/assets/portfolio-wellness.jpg";
+import signature from "@/assets/signature.png";
 
 const values = [
   {
