@@ -113,7 +113,7 @@ export const Footer = () => {
                 <MapPin size={18} className="text-primary mt-1" />
                 <div>
                   <p className="text-sm text-muted-foreground">Based in</p>
-                  <p className="text-foreground">Mumbai, India</p>
+                  <p className="text-foreground">Jaipur, India</p>
                 </div>
               </div>
             </div>
