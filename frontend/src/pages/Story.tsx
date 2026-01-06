@@ -1,39 +1,51 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
-import { Heart, Lightbulb, Target, Users } from "lucide-react";
+import { Users, Target, Heart, Lightbulb } from "lucide-react";
 import teamPhoto from "@/assets/team-photo.jpg";
 import founderPhoto from "@/assets/founder-photo.jpg";
+// Unique images for Vision & Mission
+import visionImage from "@/assets/portfolio-tech.jpg";
+import missionImage from "@/assets/portfolio-wellness.jpg";
 
 const values = [
   {
+    icon: Users,
+    title: "Client-Centric",
+    description: "Your success is our success. We listen, adapt, and deliver."
+  },
+  {
+    icon: Target,
+    title: "Excellence",
+    description: "We don't settle for good. We aim for extraordinary in every pixel."
+  },
+  {
     icon: Heart,
     title: "Passion",
-    description: "We pour our hearts into every project, treating each brand as if it were our own.",
+    description: "Creative work requires heart. We pour ours into every project."
   },
   {
     icon: Lightbulb,
     title: "Innovation",
-    description: "We push creative boundaries and embrace new ideas to deliver unique solutions.",
-  },
-  {
-    icon: Target,
-    title: "Purpose",
-    description: "Every design decision is intentional, aligned with your brand's goals and values.",
-  },
-  {
-    icon: Users,
-    title: "Partnership",
-    description: "We believe in collaborative relationships, working alongside you every step of the way.",
-  },
+    description: "Staying ahead of curves to give your brand a competitive edge."
+  }
 ];
 
 const Story = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
   return (
     <PageTransition>
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24" ref={containerRef}>
         {/* Hero */}
         <section className="py-24 relative overflow-hidden">
           <div className="container mx-auto px-6">
@@ -120,42 +132,58 @@ const Story = () => {
         </section>
 
         {/* Vision & Mission */}
-        <section className="py-24 bg-card/30">
-          <div className="container mx-auto px-6 space-y-24">
+        <section className="py-24 bg-card/30 overflow-hidden">
+          <div className="container mx-auto px-6 space-y-32">
 
-            {/* Vision Section (Text Right, Image Left) */}
+            {/* Vision Section */}
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                style={{ y }}
                 className="w-full md:w-1/2"
               >
-                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
-                  {/* Placeholder or reuse team/founder photo if no specific vision image provided */}
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative group">
+                  {/* Unique Image for Vision */}
                   <img
-                    src={teamPhoto}
+                    src={visionImage}
                     alt="Our Vision"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:bg-primary/10 transition-colors duration-500" />
+
+                  {/* Cool Effect: Floating Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute bottom-8 left-8 bg-background/80 backdrop-blur-md px-6 py-3 rounded-full border border-primary/20"
+                  >
+                    <span className="text-primary font-bold tracking-wider text-xs uppercase">Future Focused</span>
+                  </motion.div>
                 </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true, margin: "-20%" }}
+                transition={{ duration: 0.8 }}
                 className="w-full md:w-1/2"
               >
-                <span className="text-primary text-sm uppercase tracking-widest font-bold mb-4 block">
+                <motion.span
+                  initial={{ opacity: 0, letterSpacing: "0.2em" }}
+                  whileInView={{ opacity: 1, letterSpacing: "0.1em" }}
+                  transition={{ duration: 1 }}
+                  className="text-primary text-sm uppercase font-bold mb-4 block"
+                >
                   Our Vision
-                </span>
-                <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                </motion.span>
+                <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 text-foreground leading-tight">
                   Creating Impact<br />
-                  <span className="text-gradient">Through Design</span>
+                  <span
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-gradient-x"
+                  >
+                    Through Design
+                  </span>
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   We envision a world where every brand has the opportunity to tell its
@@ -166,38 +194,53 @@ const Story = () => {
               </motion.div>
             </div>
 
-            {/* Mission Section (Text Left, Image Right) */}
+            {/* Mission Section */}
             <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
               <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                style={{ y }}
                 className="w-full md:w-1/2"
               >
-                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative group">
+                  {/* Unique Image for Mission */}
                   <img
-                    src={founderPhoto}
+                    src={missionImage}
                     alt="Our Mission"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-accent/10 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-accent/20 mix-blend-overlay group-hover:bg-accent/10 transition-colors duration-500" />
+
+                  {/* Cool Effect: Floating Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute top-8 right-8 bg-background/80 backdrop-blur-md px-6 py-3 rounded-full border border-accent/20"
+                  >
+                    <span className="text-accent font-bold tracking-wider text-xs uppercase">Growth Oriented</span>
+                  </motion.div>
                 </div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true, margin: "-20%" }}
+                transition={{ duration: 0.8 }}
                 className="w-full md:w-1/2 md:text-right"
               >
-                <span className="text-primary text-sm uppercase tracking-widest font-bold mb-4 block">
+                <motion.span
+                  initial={{ opacity: 0, letterSpacing: "0.2em" }}
+                  whileInView={{ opacity: 1, letterSpacing: "0.1em" }}
+                  transition={{ duration: 1 }}
+                  className="text-primary text-sm uppercase font-bold mb-4 block ml-auto"
+                >
                   Our Mission
-                </span>
-                <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                </motion.span>
+                <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 text-foreground leading-tight">
                   Empowering Brands<br />
-                  <span className="text-gradient">To Bloom</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary via-accent to-secondary animate-gradient-x">
+                    To Bloom
+                  </span>
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed ml-auto">
                   Our mission is to empower brands with the creative tools and strategies
@@ -288,28 +331,29 @@ const Story = () => {
                 className="order-1 lg:order-2"
               >
                 <span className="text-primary text-sm uppercase tracking-widest font-medium">
-                  Meet the Founder
+                  The Founder
                 </span>
-                <h2 className="font-display text-4xl md:text-5xl font-semibold mt-4 mb-6">
-                  The Creative Force<br />
-                  <span className="text-gradient">Behind Bloom</span>
+                <h2 className="font-display text-4xl font-semibold mt-4 mb-6">
+                  Pranjal Jain
                 </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                   <p>
-                    With over a decade of experience in branding and creative direction,
-                    our founder started Bloom Branding with a vision to create a studio
-                    where creativity meets strategy.
+                    With over a decade of experience in digital design and branding,
+                    Pranjal founded Bloom Branding with a vision to bridge the gap between
+                    strategic thinking and creative expression.
                   </p>
                   <p>
-                    Having worked with brands across industries—from tech startups to
-                    luxury fashion—the journey has been one of constant learning,
-                    experimentation, and growth.
+                    "Design isn't just about making things look good. It's about solving
+                    problems and creating meaningful connections between brands and their
+                    audience. That's what drives us every day."
                   </p>
-                  <p>
-                    "I believe that great branding isn't just about aesthetics—it's about
-                    understanding the soul of a business and translating it into visual
-                    experiences that resonate with people."
-                  </p>
+                </div>
+                <div className="mt-8">
+                  <img
+                    src="/signature.png"
+                    alt="Signature"
+                    className="h-12 opacity-80"
+                  />
                 </div>
               </motion.div>
             </div>
