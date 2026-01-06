@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import portfolioCoffee from "@/assets/portfolio-coffee.jpg";
-import portfolioFashion from "@/assets/portfolio-fashion.jpg";
-import portfolioGreen from "@/assets/portfolio-green.jpg";
-import portfolioTech from "@/assets/portfolio-tech.jpg";
+import portfolioJewellery from "@/assets/portfolio-jewellery.png";
+import portfolioFashion from "@/assets/portfolio-fashion.png";
+import portfolioAccessories from "@/assets/portfolio-accessories.png";
+import portfolioCafe from "@/assets/portfolio-cafe.png";
 
 const projects = [
   {
     id: 1,
     title: "Dhruv Gems",
     category: "Jewellery Brand",
-    image: portfolioCoffee,
+    image: portfolioJewellery,
   },
   {
     id: 2,
@@ -23,13 +23,13 @@ const projects = [
     id: 3,
     title: "Life's A Beach",
     category: "Accessories Brand",
-    image: portfolioGreen,
+    image: portfolioAccessories,
   },
   {
     id: 4,
     title: "Thyme & Whisk",
     category: "Cafe & Restaurant",
-    image: portfolioTech,
+    image: portfolioCafe,
   },
 ];
 
