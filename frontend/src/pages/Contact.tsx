@@ -13,7 +13,11 @@ import { useToast } from "@/hooks/use-toast";
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pupilPos, setPupilPos] = useState({ x: 0, y: 0 });
+  const [pupilPos, setPupilPos] = useState({
+    orange: { x: 0, y: 0 },
+    purple: { x: 0, y: 0 },
+    yellow: { x: 0, y: 0 },
+  });
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,21 +25,26 @@ const Contact = () => {
       if (!containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
-      // Approximate position of eyes center relative to the viewport
-      // Based on the image layout where eyes are roughly at bottom center
-      const eyesCenterX = rect.left + rect.width * 0.63;
-      const eyesCenterY = rect.top + rect.height * 0.73;
 
-      const deltaX = e.clientX - eyesCenterX;
-      const deltaY = e.clientY - eyesCenterY;
-      const angle = Math.atan2(deltaY, deltaX);
+      // Calculate look vector for a specific eye position
+      const calculateLook = (eyeRelX: number, eyeRelY: number, maxRadius: number = 8) => {
+        const eyeCenterX = rect.left + rect.width * eyeRelX;
+        const eyeCenterY = rect.top + rect.height * eyeRelY;
+        const deltaX = e.clientX - eyeCenterX;
+        const deltaY = e.clientY - eyeCenterY;
+        const angle = Math.atan2(deltaY, deltaX);
+        const dist = Math.min(maxRadius, Math.hypot(deltaX, deltaY) / 15);
+        return {
+          x: Math.cos(angle) * dist,
+          y: Math.sin(angle) * dist
+        };
+      };
 
-      // Limit the movement radius
-      const maxRadius = 10;
-      const x = Math.cos(angle) * Math.min(maxRadius, Math.hypot(deltaX, deltaY) / 10);
-      const y = Math.sin(angle) * Math.min(maxRadius, Math.hypot(deltaX, deltaY) / 10);
-
-      setPupilPos({ x, y });
+      setPupilPos({
+        orange: calculateLook(0.35, 0.55, 10), // Orange Semi-Circle (Left)
+        purple: calculateLook(0.72, 0.35, 6),  // Purple Rect (Right)
+        yellow: calculateLook(0.63, 0.73, 8),  // Yellow Cylinder (Middle)
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -77,25 +86,55 @@ const Contact = () => {
               className="w-full h-auto object-contain drop-shadow-2xl transition-transform duration-700"
             />
 
-            {/* Interactive Eyes Overlay */}
-            <div className="absolute top-[71%] left-[59%] w-[12%] h-[6%] flex gap-[15%] pointer-events-none z-20">
-              {/* Left Eye */}
-              <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden">
+            {/* Interactive Eyes Overlays */}
+
+            {/* Orange Character Eyes (Left) */}
+            <div className="absolute top-[52%] left-[28%] w-[14%] h-[7%] flex gap-[15%] pointer-events-none z-20">
+              <div className="relative w-full h-full bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden">
                 <motion.div
-                  className="w-[50%] h-[50%] bg-black rounded-full"
-                  animate={{ x: pupilPos.x, y: pupilPos.y }}
-                  transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+                  className="w-[45%] h-[45%] bg-black rounded-full"
+                  animate={{ x: pupilPos.orange.x, y: pupilPos.orange.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15 }}
                 />
               </div>
-              {/* Right Eye */}
-              <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden">
+              <div className="relative w-full h-full bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden">
                 <motion.div
-                  className="w-[50%] h-[50%] bg-black rounded-full"
-                  animate={{ x: pupilPos.x, y: pupilPos.y }}
-                  transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+                  className="w-[45%] h-[45%] bg-black rounded-full"
+                  animate={{ x: pupilPos.orange.x, y: pupilPos.orange.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15 }}
                 />
               </div>
             </div>
+
+            {/* Purple Character Eyes (Right - Vertical) */}
+            <div className="absolute top-[32%] left-[69%] w-[6%] h-[8%] flex flex-col gap-[10%] pointer-events-none z-20">
+              <div className="relative w-full h-full bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden">
+                <motion.div
+                  className="w-[40%] h-[40%] bg-black rounded-full"
+                  animate={{ x: pupilPos.purple.x, y: pupilPos.purple.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15 }}
+                />
+              </div>
+              <div className="relative w-full h-full bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden">
+                <motion.div
+                  className="w-[40%] h-[40%] bg-black rounded-full"
+                  animate={{ x: pupilPos.purple.x, y: pupilPos.purple.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15 }}
+                />
+              </div>
+            </div>
+
+            {/* Yellow Character Eye (Middle - Single Cyclops) */}
+            <div className="absolute top-[71%] left-[58%] w-[10%] h-[6%] flex justify-center pointer-events-none z-20">
+              <div className="relative w-[60%] h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden border border-black/5">
+                <motion.div
+                  className="w-[50%] h-[50%] bg-black rounded-full"
+                  animate={{ x: pupilPos.yellow.x, y: pupilPos.yellow.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15 }}
+                />
+              </div>
+            </div>
+
           </motion.div>
         </div>
 
@@ -166,6 +205,7 @@ const Contact = () => {
               >
                 {isSubmitting ? "Sending..." : "Send Enquiry"}
               </Button>
+
             </form>
 
             <div className="mt-12 pt-8 border-t border-border">
