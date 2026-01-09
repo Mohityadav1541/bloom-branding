@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,6 +13,34 @@ import { useToast } from "@/hooks/use-toast";
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [pupilPos, setPupilPos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      // Approximate position of eyes center relative to the viewport
+      // Based on the image layout where eyes are roughly at bottom center
+      const eyesCenterX = rect.left + rect.width * 0.63;
+      const eyesCenterY = rect.top + rect.height * 0.73;
+
+      const deltaX = e.clientX - eyesCenterX;
+      const deltaY = e.clientY - eyesCenterY;
+      const angle = Math.atan2(deltaY, deltaX);
+
+      // Limit the movement radius
+      const maxRadius = 10;
+      const x = Math.cos(angle) * Math.min(maxRadius, Math.hypot(deltaX, deltaY) / 10);
+      const y = Math.sin(angle) * Math.min(maxRadius, Math.hypot(deltaX, deltaY) / 10);
+
+      setPupilPos({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,19 +63,39 @@ const Contact = () => {
       <Navbar />
       <main className="min-h-screen flex flex-col lg:flex-row pt-20">
         {/* Left Panel - Visual */}
-        <div className="w-full lg:w-1/2 bg-secondary/30 relative overflow-hidden flex items-center justify-center p-8 lg:p-0 min-h-[40vh] lg:min-h-screen">
+        <div ref={containerRef} className="w-full lg:w-1/2 bg-secondary/30 relative overflow-hidden flex items-center justify-center p-8 lg:p-0 min-h-[40vh] lg:min-h-screen">
           <div className="absolute inset-0 bg-secondary/10" />
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 w-full max-w-lg lg:max-w-xl"
+            className="relative z-10 w-full max-w-lg lg:max-w-xl group"
           >
             <img
               src="/contact-hero.png"
               alt="Creative Abstract 3D Shapes"
-              className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+              className="w-full h-auto object-contain drop-shadow-2xl transition-transform duration-700"
             />
+
+            {/* Interactive Eyes Overlay */}
+            <div className="absolute top-[71%] left-[59%] w-[12%] h-[6%] flex gap-[15%] pointer-events-none z-20">
+              {/* Left Eye */}
+              <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden">
+                <motion.div
+                  className="w-[50%] h-[50%] bg-black rounded-full"
+                  animate={{ x: pupilPos.x, y: pupilPos.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+                />
+              </div>
+              {/* Right Eye */}
+              <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden">
+                <motion.div
+                  className="w-[50%] h-[50%] bg-black rounded-full"
+                  animate={{ x: pupilPos.x, y: pupilPos.y }}
+                  transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
 
