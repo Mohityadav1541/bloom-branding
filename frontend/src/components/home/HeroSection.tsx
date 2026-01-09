@@ -74,7 +74,7 @@ export const HeroSection = () => {
             style={{ perspective: "1000px" }}
           >
             <div className="overflow-hidden p-2">
-              <div className="flex flex-wrap gap-2 md:gap-4 justify-center text-white tracking-tight drop-shadow-2xl">
+              <div className="flex flex-wrap gap-2 md:gap-4 justify-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-purple-400 animate-gradient-x tracking-tight drop-shadow-2xl">
                 <span>We</span>
                 <span>Help</span>
                 <span>Brands</span>
