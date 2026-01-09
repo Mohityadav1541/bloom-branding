@@ -161,7 +161,7 @@ const Services = () => {
                   <div className="relative h-full flex flex-col justify-end p-8 text-white z-10">
                     <div className="mb-auto pt-4">
                       <div className={`w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 mb-6 group-hover:bg-white/20 transition-colors`}>
-                        <service.icon className="h-7 w-7 text-white" />
+                        <IconComponent name={service.icon} className="h-7 w-7 text-white" />
                       </div>
                     </div>
 

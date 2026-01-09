@@ -17,6 +17,10 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -34,6 +38,13 @@ const App = () => (
               <Route path="/story" element={<Story />} />
               <Route path="/work" element={<Work />} />
               <Route path="/founder" element={<Founder />} />
+
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+              </Route>
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>

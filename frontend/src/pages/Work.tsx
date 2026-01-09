@@ -4,53 +4,40 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ArrowUpRight } from "lucide-react";
-import portfolioJewellery from "@/assets/portfolio-jewellery.png";
-import portfolioFashion from "@/assets/portfolio-fashion.png";
-import portfolioAccessories from "@/assets/portfolio-accessories.png";
-import portfolioCafe from "@/assets/portfolio-cafe.png";
+
 
 const categories = ["All", "Jewellery", "Fashion", "Lifestyle", "Hospitality"];
 
-const projects = [
-  {
-    id: 1,
-    title: "Jewellery Brands",
-    category: "Jewellery",
-    description: "Premium gemstone branding and visual identity for leading manufacturers.",
-    image: portfolioJewellery,
-    subProjects: ["Dhruv Gems", "AMBC Gems", "Vardhaman Diam", "Sapphiri"]
-  },
-  {
-    id: 2,
-    title: "Fashion & Couture",
-    category: "Fashion",
-    description: " Contemporary and traditional fashion label positioning.",
-    image: portfolioFashion,
-    subProjects: ["The Right Cut", "Binal Patel", "SubhRekha", "Mansi Nagdev"]
-  },
-  {
-    id: 3,
-    title: "Lifestyle Collection",
-    category: "Lifestyle",
-    description: "Vibrant branding for accessories and lifestyle products.",
-    image: portfolioAccessories,
-    subProjects: ["Life's A Beach", "ShoP", "B'there Innerwear"]
-  },
-  {
-    id: 4,
-    title: "Hospitality & Dining",
-    category: "Hospitality",
-    description: "Culinary brand experiences and cafe identities.",
-    image: portfolioCafe,
-    subProjects: ["Thyme & Whisk", "Kaffyn", "Amar – Fastfood Center"]
-  },
-];
+// Types
+interface Project {
+  _id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  subProjects: string[];
+}
 
 const Work = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    // Fetch projects from API
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/projects');
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   // Handle scroll direction for smart navbar
   useEffect(() => {
@@ -131,8 +118,8 @@ const Work = () => {
                   key={category}
                   onClick={() => setActiveCategory(category)}
                   className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
-                      : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
+                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                 >
                   {category}
@@ -149,7 +136,7 @@ const Work = () => {
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((project, index) => (
                   <motion.div
-                    key={project.id}
+                    key={project._id}
                     layout
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
