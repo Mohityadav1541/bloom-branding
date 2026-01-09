@@ -16,28 +16,27 @@ const navLinks = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const location = useLocation();
-
   useEffect(() => {
+    let lastY = window.scrollY;
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       // Show if scrolling up or at the very top
-      if (currentScrollY < lastScrollY || currentScrollY < 50) {
+      if (currentScrollY < lastY || currentScrollY < 50) {
         setIsVisible(true);
       }
       // Hide if scrolling down and past the header
-      else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      else if (currentScrollY > lastY && currentScrollY > 50) {
         setIsVisible(false);
       }
 
-      setLastScrollY(currentScrollY);
+      lastY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   return (
     <motion.nav
