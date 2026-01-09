@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, BookOpen, Sparkles, Briefcase, User, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Our Story", path: "/story" },
-  { name: "Services", path: "/services" },
-  { name: "Work", path: "/work" },
-  { name: "Our Founder", path: "/founder" },
-  { name: "Contact", path: "/contact" },
+  { name: "Home", path: "/", icon: Home },
+  { name: "Our Story", path: "/story", icon: BookOpen },
+  { name: "Services", path: "/services", icon: Sparkles },
+  { name: "Work", path: "/work", icon: Briefcase },
+  { name: "Our Founder", path: "/founder", icon: User },
+  { name: "Contact", path: "/contact", icon: Mail },
 ];
 
 export const Navbar = () => {
@@ -54,34 +54,40 @@ export const Navbar = () => {
               alt="Bloom Studio"
               className="h-12 w-12 rounded-full object-contain"
             />
-
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="relative group"
-              >
-                <span
-                  className={`font-body text-sm tracking-wide transition-colors ${location.pathname === link.path
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                    }`}
+          <div className="hidden md:flex items-center gap-4">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="relative group flex items-center justify-center p-2 rounded-full transition-all duration-300"
                 >
-                  {link.name}
-                </span>
-                <motion.span
-                  className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                  initial={{ width: 0 }}
-                  animate={{ width: location.pathname === link.path ? "100%" : 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
-            ))}
+                  {/* Lighting/Glow Effect Background */}
+                  <span className="absolute inset-0 bg-foreground text-background rounded-full scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.3)]" />
+
+                  <div className={`flex items-center gap-2 relative z-10 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground group-hover:text-background"}`}>
+                    <link.icon className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110`} />
+                    <span
+                      className={`font-body text-sm tracking-wide overflow-hidden whitespace-nowrap transition-all duration-300 max-w-[100px] group-hover:max-w-0 group-hover:opacity-0`}
+                    >
+                      {link.name}
+                    </span>
+                  </div>
+
+                  {/* Active Indicator Dot (optional, if text underline is removed) */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-nav"
+                      className="absolute -bottom-2 w-1 h-1 bg-primary rounded-full"
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="hidden md:block">
@@ -122,11 +128,12 @@ export const Navbar = () => {
                   <Link
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block py-2 font-body text-lg ${location.pathname === link.path
+                    className={`flex items-center gap-3 py-2 font-body text-lg ${location.pathname === link.path
                       ? "text-primary"
                       : "text-muted-foreground"
                       }`}
                   >
+                    <link.icon size={20} />
                     {link.name}
                   </Link>
                 </motion.div>
