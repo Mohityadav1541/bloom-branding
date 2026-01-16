@@ -19,21 +19,61 @@ interface Project {
 }
 
 const Work = () => {
+  const initialProjects: Project[] = [
+    {
+      _id: "1",
+      title: "Jewellery Brands",
+      category: "Jewellery",
+      description: "Premium gemstone branding and visual identity for leading manufacturers.",
+      image: "/images/portfolio-jewellery.png",
+      subProjects: ["Dhruv Gems", "AMBC Gems", "Vardhaman Diam", "Sapphiri"]
+    },
+    {
+      _id: "2",
+      title: "Fashion & Couture",
+      category: "Fashion",
+      description: "Contemporary and traditional fashion label positioning.",
+      image: "/images/portfolio-fashion.png",
+      subProjects: ["The Right Cut", "Binal Patel", "SubhRekha", "Mansi Nagdev"]
+    },
+    {
+      _id: "3",
+      title: "Lifestyle Collection",
+      category: "Lifestyle",
+      description: "Vibrant branding for accessories and lifestyle products.",
+      image: "/images/portfolio-accessories.png",
+      subProjects: ["Life's A Beach", "ShoP", "B'there Innerwear"]
+    },
+    {
+      _id: "4",
+      title: "Hospitality & Dining",
+      category: "Hospitality",
+      description: "Culinary brand experiences and cafe identities.",
+      image: "/images/portfolio-cafe.png",
+      subProjects: ["Thyme & Whisk", "Kaffyn", "Amar – Fastfood Center"]
+    },
+  ];
+
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
 
   useEffect(() => {
-    // Fetch projects from API
+    // Fetch projects from API if available, otherwise use initialProjects
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/projects');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${apiUrl}/api/projects`);
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
-        setProjects(data);
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
       } catch (error) {
-        console.error("Failed to fetch projects:", error);
+        console.warn("Failed to fetch projects from API, using fallback data:", error);
+        // Fallback is already set in initial state
       }
     };
     fetchProjects();
