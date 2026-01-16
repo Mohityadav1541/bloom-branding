@@ -19,6 +19,7 @@ const ProjectManager = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState<Project | null>(null);
     const [isCreating, setIsCreating] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'; // Added env var
 
     // Form State
     const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ const ProjectManager = () => {
 
     const fetchProjects = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/projects');
+            const res = await axios.get(`${apiUrl}/api/projects`);
             setProjects(res.data);
             setIsLoading(false);
         } catch (err) {
@@ -47,7 +48,7 @@ const ProjectManager = () => {
     const handleDelete = async (id: string) => {
         if (confirm('Are you sure you want to delete this project?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/projects/${id}`);
+                await axios.delete(`${apiUrl}/api/projects/${id}`);
                 setProjects(projects.filter(p => p._id !== id));
             } catch (err) {
                 console.error(err);
@@ -64,11 +65,11 @@ const ProjectManager = () => {
 
         try {
             if (isEditing) {
-                const res = await axios.patch(`http://localhost:5000/api/projects/${isEditing._id}`, payload);
+                const res = await axios.patch(`${apiUrl}/api/projects/${isEditing._id}`, payload);
                 setProjects(projects.map(p => p._id === isEditing._id ? res.data : p));
                 setIsEditing(null);
             } else {
-                const res = await axios.post('http://localhost:5000/api/projects', payload);
+                const res = await axios.post(`${apiUrl}/api/projects`, payload);
                 setProjects([...projects, res.data]);
                 setIsCreating(false);
             }

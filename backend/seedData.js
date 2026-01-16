@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs'); // Added bcrypt
 const Project = require('./models/Project');
 const Service = require('./models/Service');
+const User = require('./models/User'); // Added User model
 
 dotenv.config();
 
@@ -92,16 +94,33 @@ const seedDB = async () => {
         await mongoose.connect(process.env.DATABASE_URL);
         console.log("Connected to DB");
 
-        console.log("Seeding Projects...");
+        // Seed Projects
         console.log("Seeding Projects...");
         await Project.deleteMany({});
         await Project.insertMany(projects);
         console.log("Projects Seeded");
 
+        // Seed Services
         console.log("Seeding Services...");
         await Service.deleteMany({});
         await Service.insertMany(services);
         console.log("Services Seeded");
+
+        // Seed Admin User
+        console.log("Seeding Admin User...");
+        await User.deleteMany({}); // Clear existing users
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash("1234", salt); // New password
+
+        const adminUser = new User({
+            email: "admin@gmail.com",
+            password: hashedPassword,
+            role: "admin"
+        });
+
+        await adminUser.save();
+        console.log("Admin User Seeded");
+        console.log("Credentials -> Email: admin@gmail.com | Password: 1234");
 
         console.log("Seeding Done!");
         process.exit();

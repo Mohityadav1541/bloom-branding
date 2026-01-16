@@ -7,7 +7,7 @@ import { ArrowRight, Lock } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 
 const AdminLogin = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -15,11 +15,18 @@ const AdminLogin = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const res = await axios.post(`${apiUrl}/api/auth/login`, { email, password });
             localStorage.setItem('token', res.data.token);
             navigate('/admin/dashboard');
         } catch (err: any) {
-            setError('Invalid credentials');
+            console.error("Login error:", err);
+            // If it's a network error (no response), it might mean the backend is unreachable
+            if (!err.response) {
+                setError('Network Error: Cannot connect to server');
+            } else {
+                setError(err.response?.data?.msg || 'Invalid credentials');
+            }
         }
     };
 
@@ -43,13 +50,13 @@ const AdminLogin = () => {
                         {error && <p className="text-red-500 text-sm">{error}</p>}
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-muted-foreground">Username</label>
+                            <label className="text-sm font-medium text-muted-foreground">Email</label>
                             <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                                placeholder="Enter admin username"
+                                placeholder="admin@gmail.com"
                             />
                         </div>
 

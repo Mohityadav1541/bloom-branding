@@ -20,6 +20,7 @@ const ServiceManager = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState<Service | null>(null);
     const [isCreating, setIsCreating] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'; // Added env var
 
     // Form State
     const [formData, setFormData] = useState({
@@ -37,7 +38,7 @@ const ServiceManager = () => {
 
     const fetchServices = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/services');
+            const res = await axios.get(`${apiUrl}/api/services`);
             setServices(res.data);
             setIsLoading(false);
         } catch (err) {
@@ -49,7 +50,7 @@ const ServiceManager = () => {
     const handleDelete = async (id: string) => {
         if (confirm('Are you sure you want to delete this service?')) {
             try {
-                await axios.delete(`http://localhost:5000/api/services/${id}`);
+                await axios.delete(`${apiUrl}/api/services/${id}`);
                 setServices(services.filter(s => s._id !== id));
             } catch (err) {
                 console.error(err);
@@ -66,11 +67,11 @@ const ServiceManager = () => {
 
         try {
             if (isEditing) {
-                const res = await axios.patch(`http://localhost:5000/api/services/${isEditing._id}`, payload);
+                const res = await axios.patch(`${apiUrl}/api/services/${isEditing._id}`, payload);
                 setServices(services.map(s => s._id === isEditing._id ? res.data : s));
                 setIsEditing(null);
             } else {
-                const res = await axios.post('http://localhost:5000/api/services', payload);
+                const res = await axios.post(`${apiUrl}/api/services`, payload);
                 setServices([...services, res.data]);
                 setIsCreating(false);
             }
