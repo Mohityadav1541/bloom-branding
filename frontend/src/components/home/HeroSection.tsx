@@ -137,8 +137,10 @@ export const HeroSection = () => {
 
         <motion.div
           className="absolute inset-0 w-full h-full"
-          // Removed brightness dimming to keep camera visible as per "background remain same"
-          animate={{ filter: showText ? "blur(4px)" : "blur(0px)" }}
+          // Use will-change to hint browser optimization
+          style={{ willChange: "filter" }}
+          // Reduced blur amount significantly for performance (4px -> 0px/2px) or remove dynamic blur on scroll
+          animate={{ filter: showText ? "blur(2px)" : "blur(0px)" }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
           <video
@@ -146,11 +148,13 @@ export const HeroSection = () => {
             muted
             playsInline
             loop={false}
+            preload="auto"
             className="w-full h-full object-cover opacity-100"
-            poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop"
+            // Remove poster to prevent double loading visual or keep low-res
+            poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop"
             onLoadedData={() => setIsVideoLoaded(true)}
           >
-            {/* Reverted to Reliable HD Camera Lens Video */}
+            {/* Use same video but ensure attribute correctness */}
             <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
           </video>
         </motion.div>
