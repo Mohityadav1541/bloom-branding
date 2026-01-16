@@ -93,6 +93,12 @@ const services = [
   },
 ];
 
+// Helper component to render icons
+const IconComponent = ({ name: Icon, className }: { name: any, className?: string }) => {
+  if (!Icon) return null;
+  return <Icon className={className} />;
+};
+
 const Services = () => {
   return (
     <PageTransition>

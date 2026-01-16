@@ -10,28 +10,28 @@ const projects = [
         title: "Jewellery Brands",
         category: "Jewellery",
         description: "Premium gemstone branding and visual identity for leading manufacturers.",
-        image: "http://localhost:5173/images/portfolio-jewellery.png", // Pointing to local frontend
+        image: "/images/portfolio-jewellery.png", // Pointing to local frontend
         subProjects: ["Dhruv Gems", "AMBC Gems", "Vardhaman Diam", "Sapphiri"]
     },
     {
         title: "Fashion & Couture",
         category: "Fashion",
         description: "Contemporary and traditional fashion label positioning.",
-        image: "http://localhost:5173/images/portfolio-fashion.png",
+        image: "/images/portfolio-fashion.png",
         subProjects: ["The Right Cut", "Binal Patel", "SubhRekha", "Mansi Nagdev"]
     },
     {
         title: "Lifestyle Collection",
         category: "Lifestyle",
         description: "Vibrant branding for accessories and lifestyle products.",
-        image: "http://localhost:5173/images/portfolio-accessories.png",
+        image: "/images/portfolio-accessories.png",
         subProjects: ["Life's A Beach", "ShoP", "B'there Innerwear"]
     },
     {
         title: "Hospitality & Dining",
         category: "Hospitality",
         description: "Culinary brand experiences and cafe identities.",
-        image: "http://localhost:5173/images/portfolio-cafe.png",
+        image: "/images/portfolio-cafe.png",
         subProjects: ["Thyme & Whisk", "Kaffyn", "Amar – Fastfood Center"]
     },
 ];
