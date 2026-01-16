@@ -1,0 +1,7 @@
+Starting DB check at 2026-01-16T06:53:05.698Z
+Connecting to mongodb://127.0...
+Error: connect ECONNREFUSED 127.0.0.1:27017
+Starting DB check at 2026-01-16T06:59:58.009Z
+Connecting to mongodb+srv://y...
+Connected!
+Project count: 0
