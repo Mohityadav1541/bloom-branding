@@ -25,6 +25,7 @@ const serviceRoutes = require('./routes/services');
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/services', serviceRoutes);
+app.use('/api/enquiries', require('./routes/enquiries'));
 
 app.get('/', (req, res) => {
     res.send('Bloom Studio Digital API is running');

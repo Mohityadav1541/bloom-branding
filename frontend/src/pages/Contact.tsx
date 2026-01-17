@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -51,20 +52,49 @@ const Contact = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    serviceInterest: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${apiUrl}/api/enquiries`, formData);
 
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24-48 hours.",
-    });
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24-48 hours.",
+      });
 
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+      setFormData({
+        name: '',
+        email: '',
+        serviceInterest: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error("Error sending enquiry:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -170,6 +200,8 @@ const Contact = () => {
                   type="text"
                   placeholder="e.g. John Doe"
                   required
+                  value={formData.name}
+                  onChange={handleChange}
                   className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
                 />
               </div>
@@ -181,6 +213,8 @@ const Contact = () => {
                   type="email"
                   placeholder="john@company.com"
                   required
+                  value={formData.email}
+                  onChange={handleChange}
                   className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
                 />
               </div>
@@ -188,8 +222,10 @@ const Contact = () => {
               <div className="space-y-2">
                 <Label htmlFor="services">Service Interest</Label>
                 <Input
-                  id="services"
+                  id="serviceInterest"
                   placeholder="e.g. Branding, Web Design"
+                  value={formData.serviceInterest}
+                  onChange={handleChange}
                   className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
                 />
               </div>
@@ -201,6 +237,8 @@ const Contact = () => {
                   placeholder="Tell us a bit about your project..."
                   className="min-h-[120px] bg-secondary/20 border-border focus:border-primary rounded-xl resize-none"
                   required
+                  value={formData.message}
+                  onChange={handleChange}
                 />
               </div>
 
