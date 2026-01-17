@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -251,13 +251,14 @@ const Work = () => {
           </div>
         </section>
 
-        {/* Projects Carousel 3D */}
-        <section className="py-12 pb-24 overflow-hidden" ref={carouselRef}>
+        {/* Projects Carousel */}
+        <section className="py-12 pb-24 overflow-hidden">
           <div className="container mx-auto px-6 mb-8 flex justify-between items-end">
             <div>
               <h2 className="font-display text-3xl font-semibold">Featured Work</h2>
               <p className="text-muted-foreground mt-2">Swipe to explore our latest projects</p>
             </div>
+            {/* Carousel Navigation Hints */}
             <div className="hidden md:flex gap-2">
               <div className="w-12 h-1 bg-primary/20 rounded-full overflow-hidden">
                 <motion.div
@@ -270,21 +271,76 @@ const Work = () => {
             </div>
           </div>
 
-          {/* 3D Scroll Container - "The Track" */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[5vw] md:px-[25vw] scrollbar-hide [perspective:800px] [transform-style:preserve-3d] items-center h-[70vh] md:h-[600px]">
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
-                <ProjectCard
-                  key={project._id}
-                  project={project}
-                  containerRef={carouselRef}
-                  onClick={() => setSelectedProject(project)}
-                />
-              ))}
-            </AnimatePresence>
+          <div className="pl-6 md:container md:mx-auto md:px-6">
+            <motion.div
+              ref={carouselRef}
+              className="cursor-grab active:cursor-grabbing overflow-hidden"
+              whileTap={{ cursor: "grabbing" }}
+            >
+              <motion.div
+                drag="x"
+                dragConstraints={{ right: 0, left: -width }}
+                className="flex gap-6 md:gap-8"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredProjects.map((project, index) => (
+                    <motion.div
+                      key={project._id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      className="min-w-[85vw] md:min-w-[450px] relative group"
+                    >
+                      {/* Card */}
+                      <div
+                        className="bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-lg hover:shadow-xl hover:border-primary/50 transition-all duration-500 h-full flex flex-col cursor-pointer"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        {/* Image Container */}
+                        <div className="h-[60vh] md:h-[500px] relative overflow-hidden">
+                          <motion.div
+                            className="w-full h-full"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.7 }}
+                          >
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+                          </motion.div>
 
-            {/* Spacer for end of list scrolling */}
-            <div className="w-[10vw] md:w-[10vw] shrink-0 snap-center" />
+                          {/* Floating Category Badge */}
+                          <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-4 py-2 rounded-full">
+                            <span className="text-white text-xs uppercase tracking-widest font-medium">
+                              {project.category}
+                            </span>
+                          </div>
+
+                          {/* Content Overlay */}
+                          <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 className="font-display text-3xl font-bold text-white mb-3">
+                              {project.title}
+                            </h3>
+                            <p className="text-white/70 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                              {project.description}
+                            </p>
+
+                            <div className="flex items-center gap-2 text-white/90 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                              <span>View Case Study</span>
+                              <ArrowUpRight className="w-4 h-4" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
