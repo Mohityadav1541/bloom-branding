@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/layout/PageTransition";
@@ -17,6 +17,72 @@ interface Project {
   image: string;
   subProjects: string[];
 }
+
+const ProjectCard = ({ project, containerRef, onClick }: { project: Project, containerRef: React.RefObject<any>, onClick: () => void }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollXProgress } = useScroll({
+    target: cardRef,
+    container: containerRef,
+    axis: "x",
+    offset: ["center end", "center start"]
+  });
+
+  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.85, 1.15, 0.85]);
+  const rotateY = useTransform(scrollXProgress, [0, 0.5, 1], [25, 0, -25]);
+  const opacity = useTransform(scrollXProgress, [0, 0.3, 0.5, 0.7, 1], [0.6, 0.8, 1, 0.8, 0.6]);
+  const zIndex = useTransform(scrollXProgress, [0, 0.5, 1], [0, 10, 0]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      style={{
+        scale,
+        rotateY,
+        opacity,
+        zIndex,
+        perspective: 1000
+      }}
+      className="snap-center shrink-0 min-w-[80vw] md:min-w-[400px] h-full flex items-center justify-center py-8"
+    >
+      <div
+        className="w-full bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl hover:border-primary/50 transition-colors duration-500 cursor-pointer h-[50vh] md:h-[450px] relative group transform-style-3d bg-black"
+        onClick={onClick}
+      >
+        {/* Image Container */}
+        <div className="w-full h-full relative overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90" />
+        </div>
+
+        {/* Floating Category Badge */}
+        <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-4 py-2 rounded-full z-20">
+          <span className="text-white text-xs uppercase tracking-widest font-medium">
+            {project.category}
+          </span>
+        </div>
+
+        {/* Content Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <h3 className="font-display text-3xl font-bold text-white mb-3 drop-shadow-lg">
+            {project.title}
+          </h3>
+          <p className="text-white/80 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+            {project.description}
+          </p>
+
+          <div className="flex items-center gap-2 text-white/90 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+            <span>View Project</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Work = () => {
   const initialProjects: Project[] = [
@@ -177,14 +243,13 @@ const Work = () => {
           </div>
         </section>
 
-        {/* Projects Carousel */}
-        <section className="py-12 pb-24 overflow-hidden">
+        {/* Projects Carousel 3D */}
+        <section className="py-12 pb-24 overflow-hidden" ref={carouselRef}>
           <div className="container mx-auto px-6 mb-8 flex justify-between items-end">
             <div>
               <h2 className="font-display text-3xl font-semibold">Featured Work</h2>
               <p className="text-muted-foreground mt-2">Swipe to explore our latest projects</p>
             </div>
-            {/* Carousel Navigation Hints */}
             <div className="hidden md:flex gap-2">
               <div className="w-12 h-1 bg-primary/20 rounded-full overflow-hidden">
                 <motion.div
@@ -197,75 +262,21 @@ const Work = () => {
             </div>
           </div>
 
-          <div className="pl-6 md:container md:mx-auto md:px-6">
-            <motion.div
-              className="cursor-grab active:cursor-grabbing"
-              whileTap={{ cursor: "grabbing" }}
-            >
-              <motion.div
-                drag="x"
-                dragConstraints={{ right: 0, left: -((filteredProjects.length * 420) + (filteredProjects.length * 32) - window.innerWidth + 100) }} // Approx calculation, refined in ref ref
-                className="flex gap-8"
-              >
-                <AnimatePresence mode="popLayout">
-                  {filteredProjects.map((project, index) => (
-                    <motion.div
-                      key={project._id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.4, delay: index * 0.05 }}
-                      className="min-w-[85vw] md:min-w-[450px] relative group"
-                    >
-                      {/* Card */}
-                      <div
-                        className="bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-lg hover:shadow-xl hover:border-primary/50 transition-all duration-500 h-full flex flex-col"
-                        onClick={() => setSelectedProject(project)}
-                      >
-                        {/* Image Container */}
-                        <div className="h-[60vh] md:h-[500px] relative overflow-hidden">
-                          <motion.div
-                            className="w-full h-full"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.7 }}
-                          >
-                            <img
-                              src={project.image}
-                              alt={project.title}
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
-                          </motion.div>
+          {/* 3D Scroll Container - "The Track" */}
+          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[10vw] md:px-[30vw] space-x-4 md:space-x-8 scrollbar-hide perspective-1000 items-center h-[70vh] md:h-[600px]">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => (
+                <ProjectCard
+                  key={project._id}
+                  project={project}
+                  containerRef={carouselRef}
+                  onClick={() => setSelectedProject(project)}
+                />
+              ))}
+            </AnimatePresence>
 
-                          {/* Floating Category Badge */}
-                          <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-4 py-2 rounded-full">
-                            <span className="text-white text-xs uppercase tracking-widest font-medium">
-                              {project.category}
-                            </span>
-                          </div>
-
-                          {/* Content Overlay */}
-                          <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                            <h3 className="font-display text-3xl font-bold text-white mb-3">
-                              {project.title}
-                            </h3>
-                            <p className="text-white/70 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                              {project.description}
-                            </p>
-
-                            <div className="flex items-center gap-2 text-white/90 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                              <span>View Case Study</span>
-                              <ArrowUpRight className="w-4 h-4" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-            </motion.div>
+            {/* Spacer for end of list scrolling */}
+            <div className="w-[10vw] md:w-[10vw] shrink-0 snap-center" />
           </div>
         </section>
 
