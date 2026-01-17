@@ -27,48 +27,64 @@ const CarouselItem = ({ project, containerRef, onClick }: { project: Project, co
     offset: ["center end", "center start"],
   });
 
-  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.9, 1.05, 0.9]);
+  // Stronger scale for the center item
+  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
+  // Opacity fade for depth
   const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
+  // Physical Z translation to pull center forward and push sides back
+  const z = useTransform(scrollXProgress, [0, 0.5, 1], [-100, 0, -100]);
+  // Rotate for a slight "opening" effect
+  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [25, 0, -25]);
+
+  // Z-Index: Critical to keep center on top. 
+  // Ramps up quickly to 100 at center, then drops back.
+  const zIndex = useTransform(scrollXProgress, [0, 0.45, 0.5, 0.55, 1], [0, 0, 100, 0, 0]);
+
+  // X translation to create overlap (Coverflow effect)
+  // Pulls side cards in towards the center.
+  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-40, 0, 40]);
 
   return (
     <motion.div
       ref={cardRef}
-      style={{ scale, opacity }}
-      className="snap-center shrink-0 min-w-[85vw] md:min-w-[450px] relative group"
+      style={{
+        scale,
+        opacity,
+        zIndex,
+        rotateY,
+        z,
+        x,
+      }}
+      className="snap-center shrink-0 min-w-[70vw] md:min-w-[400px] h-[60vh] md:h-[500px] flex items-center justify-center relative perspective-1000"
     >
       {/* Card */}
       <div
-        className="bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-lg hover:shadow-xl hover:border-primary/50 transition-all duration-500 h-full flex flex-col cursor-pointer"
+        className="w-full h-full bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer relative group bg-black"
         onClick={onClick}
       >
         {/* Image Container */}
-        <div className="h-[60vh] md:h-[500px] relative overflow-hidden">
-          <motion.div
-            className="w-full h-full"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.7 }}
-          >
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
-          </motion.div>
+        <div className="w-full h-full relative overflow-hidden">
+          <motion.img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90" />
+
 
           {/* Floating Category Badge */}
-          <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-4 py-2 rounded-full">
+          <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-4 py-2 rounded-full z-20">
             <span className="text-white text-xs uppercase tracking-widest font-medium">
               {project.category}
             </span>
           </div>
 
           {/* Content Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-            <h3 className="font-display text-3xl font-bold text-white mb-3">
+          <div className="absolute bottom-0 left-0 right-0 p-8 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-3 shadow-black drop-shadow-lg">
               {project.title}
             </h3>
-            <p className="text-white/70 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+            <p className="text-white/80 text-sm md:text-base line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
               {project.description}
             </p>
 
@@ -264,7 +280,7 @@ const Work = () => {
 
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory py-12 px-6 md:px-[30vw] space-x-6 pb-12 scrollbar-hide items-center h-[70vh] md:h-[600px]"
+            className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[10vw] md:px-[30vw] space-x-0 pb-12 scrollbar-hide items-center h-[70vh] md:h-[600px] perspective-1000 [transform-style:preserve-3d]"
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
