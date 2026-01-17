@@ -164,22 +164,7 @@ export const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-white/50 uppercase tracking-widest font-light">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-cyan-400 to-transparent" />
-        </motion.div>
-      </motion.div>
+
     </section>
   );
 };
