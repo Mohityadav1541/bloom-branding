@@ -171,10 +171,10 @@ export const Footer = () => {
             </p>
             <Link
               to="/admin"
-              className="text-xs text-muted-foreground/40 hover:text-primary transition-colors"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium transition-colors"
               aria-label="Admin Login"
             >
-              Admin
+              Admin Login
             </Link>
           </div>
         </div>
