@@ -17,7 +17,11 @@ const ContentManager = () => {
         heroSubtitle: '',
         heroVideoUrl: '',
         heroBadge: '',
-        showreelLink: ''
+        showreelLink: '',
+        storyTeamImage: '',
+        storyFounderImage: '',
+        storyVisionImage: '',
+        storyMissionImage: ''
     });
 
     useEffect(() => {
@@ -34,7 +38,11 @@ const ContentManager = () => {
                     heroSubtitle: res.data.heroSubtitle || '',
                     heroVideoUrl: res.data.heroVideoUrl || '',
                     heroBadge: res.data.heroBadge || '',
-                    showreelLink: res.data.showreelLink || ''
+                    showreelLink: res.data.showreelLink || '',
+                    storyTeamImage: res.data.storyTeamImage || '',
+                    storyFounderImage: res.data.storyFounderImage || '',
+                    storyVisionImage: res.data.storyVisionImage || '',
+                    storyMissionImage: res.data.storyMissionImage || ''
                 });
             }
         } catch (error) {
@@ -139,14 +147,101 @@ const ContentManager = () => {
                             placeholder="/work"
                         />
                     </div>
-                </div>
+                    </div>
+                    
+                    </div>
+                    
+                    <div className="space-y-4 border p-4 rounded-xl bg-card">
+                        <h3 className="font-semibold text-lg">Our Story Images</h3>
+                        
+                        <div className="space-y-2">
+                            <Label htmlFor="storyTeamImage">Team Photo URL</Label>
+                            <div className="flex gap-4 items-start">
+                                <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+                                    {formData.storyTeamImage ? (
+                                        <img src={formData.storyTeamImage} alt="Team" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground text-center p-1">Default</div>
+                                    )}
+                                </div>
+                                <Input 
+                                    id="storyTeamImage" 
+                                    value={formData.storyTeamImage} 
+                                    onChange={handleChange} 
+                                    placeholder="https://... (Leave empty for default)"
+                                    className="flex-1"
+                                />
+                            </div>
+                        </div>
 
-                <Button type="submit" disabled={saving} className="w-full">
-                    {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                    Save Changes
-                </Button>
-            </form>
-        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="storyFounderImage">Founder Photo URL</Label>
+                             <div className="flex gap-4 items-start">
+                                <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+                                    {formData.storyFounderImage ? (
+                                        <img src={formData.storyFounderImage} alt="Founder" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground text-center p-1">Default</div>
+                                    )}
+                                </div>
+                                <Input 
+                                    id="storyFounderImage" 
+                                    value={formData.storyFounderImage} 
+                                    onChange={handleChange} 
+                                    placeholder="https://... (Leave empty for default)"
+                                    className="flex-1"
+                                />
+                             </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="storyVisionImage">Vision Image URL</Label>
+                             <div className="flex gap-4 items-start">
+                                <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+                                    {formData.storyVisionImage ? (
+                                        <img src={formData.storyVisionImage} alt="Vision" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground text-center p-1">Default</div>
+                                    )}
+                                </div>
+                                <Input 
+                                    id="storyVisionImage" 
+                                    value={formData.storyVisionImage} 
+                                    onChange={handleChange} 
+                                    placeholder="https://... (Leave empty for default)"
+                                    className="flex-1"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="storyMissionImage">Mission Image URL</Label>
+                             <div className="flex gap-4 items-start">
+                                <div className="w-20 h-20 bg-muted rounded-lg overflow-hidden flex-shrink-0">
+                                    {formData.storyMissionImage ? (
+                                        <img src={formData.storyMissionImage} alt="Mission" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground text-center p-1">Default</div>
+                                    )}
+                                </div>
+                                <Input 
+                                    id="storyMissionImage" 
+                                    value={formData.storyMissionImage} 
+                                    onChange={handleChange} 
+                                    placeholder="https://... (Leave empty for default)"
+                                    className="flex-1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div >
+
+    <Button type="submit" disabled={saving} className="w-full">
+        {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+        Save Changes
+    </Button>
+            </form >
+        </div >
     );
 };
 

@@ -21,6 +21,10 @@ const HomepageSchema = new mongoose.Schema({
         type: String,
         default: "/work"
     },
+    storyTeamImage: { type: String, default: "" },
+    storyFounderImage: { type: String, default: "" },
+    storyVisionImage: { type: String, default: "" },
+    storyMissionImage: { type: String, default: "" },
     updatedAt: {
         type: Date,
         default: Date.now

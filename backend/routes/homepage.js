@@ -30,6 +30,13 @@ router.put('/', async (req, res) => {
         homepage.heroVideoUrl = req.body.heroVideoUrl || homepage.heroVideoUrl;
         homepage.heroBadge = req.body.heroBadge || homepage.heroBadge;
         homepage.showreelLink = req.body.showreelLink || homepage.showreelLink;
+
+        // Story Images
+        homepage.storyTeamImage = req.body.storyTeamImage !== undefined ? req.body.storyTeamImage : homepage.storyTeamImage;
+        homepage.storyFounderImage = req.body.storyFounderImage !== undefined ? req.body.storyFounderImage : homepage.storyFounderImage;
+        homepage.storyVisionImage = req.body.storyVisionImage !== undefined ? req.body.storyVisionImage : homepage.storyVisionImage;
+        homepage.storyMissionImage = req.body.storyMissionImage !== undefined ? req.body.storyMissionImage : homepage.storyMissionImage;
+
         homepage.updatedAt = Date.now();
 
         const updatedHomepage = await homepage.save();

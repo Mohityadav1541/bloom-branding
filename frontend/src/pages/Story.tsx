@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -40,6 +40,36 @@ const Story = () => {
     target: containerRef,
     offset: ["start end", "end start"]
   });
+
+  const [content, setContent] = useState({
+    storyTeamImage: teamPhoto,
+    storyFounderImage: founderPhoto,
+    storyVisionImage: visionImage,
+    storyMissionImage: missionImage
+  });
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/homepage`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            setContent({
+              storyTeamImage: data.storyTeamImage || teamPhoto,
+              storyFounderImage: data.storyFounderImage || founderPhoto,
+              storyVisionImage: data.storyVisionImage || visionImage,
+              storyMissionImage: data.storyMissionImage || missionImage
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load story content", error);
+      }
+    };
+    fetchContent();
+  }, []);
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
@@ -116,7 +146,7 @@ const Story = () => {
                 <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20 p-1">
                   <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center overflow-hidden">
                     <img
-                      src={teamPhoto}
+                      src={content.storyTeamImage}
                       alt="Bloom Branding Team"
                       className="w-full h-full object-cover"
                     />
@@ -145,7 +175,7 @@ const Story = () => {
                 <div className="aspect-[4/3] rounded-3xl overflow-hidden relative group">
                   {/* Unique Image for Vision */}
                   <img
-                    src={visionImage}
+                    src={content.storyVisionImage}
                     alt="Our Vision"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
@@ -204,7 +234,7 @@ const Story = () => {
                 <div className="aspect-[4/3] rounded-3xl overflow-hidden relative group">
                   {/* Unique Image for Mission */}
                   <img
-                    src={missionImage}
+                    src={content.storyMissionImage}
                     alt="Our Mission"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
@@ -317,7 +347,7 @@ const Story = () => {
                 <div className="aspect-square rounded-3xl bg-gradient-to-br from-accent/20 via-primary/10 to-secondary/20 p-1 max-w-md mx-auto">
                   <div className="w-full h-full rounded-3xl bg-card flex items-center justify-center overflow-hidden">
                     <img
-                      src={founderPhoto}
+                      src={content.storyFounderImage}
                       alt="Founder"
                       className="w-full h-full object-cover"
                     />
