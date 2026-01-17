@@ -55,6 +55,10 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    mobile: '',
+    brandName: '',
+    deadline: '',
+    budget: '',
     serviceInterest: '',
     message: ''
   });
@@ -82,6 +86,10 @@ const Contact = () => {
       setFormData({
         name: '',
         email: '',
+        mobile: '',
+        brandName: '',
+        deadline: '',
+        budget: '',
         serviceInterest: '',
         message: ''
       });
@@ -219,6 +227,31 @@ const Contact = () => {
                 />
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="mobile">Mobile Number</Label>
+                  <Input
+                    id="mobile"
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="brandName">Brand Name</Label>
+                  <Input
+                    id="brandName"
+                    type="text"
+                    placeholder="Your Brand"
+                    value={formData.brandName}
+                    onChange={handleChange}
+                    className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="services">Service Interest</Label>
                 <Input
@@ -228,6 +261,31 @@ const Contact = () => {
                   onChange={handleChange}
                   className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
                 />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="deadline">Deadline</Label>
+                  <Input
+                    id="deadline"
+                    type="text"
+                    placeholder="e.g. 1 Month, ASAP"
+                    value={formData.deadline}
+                    onChange={handleChange}
+                    className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="budget">Budget</Label>
+                  <Input
+                    id="budget"
+                    type="text"
+                    placeholder="e.g. ₹50k - ₹1L"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    className="h-12 bg-secondary/20 border-border focus:border-primary rounded-xl"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
