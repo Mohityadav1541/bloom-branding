@@ -163,7 +163,7 @@ const Contact = () => {
             </div>
 
             {/* Yellow Character Eyes (Middle - Two Eyes) */}
-            <div className="absolute top-[69.5%] left-[54.5%] w-[15%] h-[6.5%] flex gap-[8%] justify-center pointer-events-none z-20">
+            <div className="absolute top-[69.5%] left-[53.8%] w-[15%] h-[6.5%] flex gap-[8%] justify-center pointer-events-none z-20">
               <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden border border-black/5">
                 <motion.div
                   className="w-[50%] h-[50%] bg-black rounded-full"
