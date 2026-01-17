@@ -145,7 +145,7 @@ const Contact = () => {
             </div>
 
             {/* Purple Character Eyes (Right - Vertical) */}
-            <div className="absolute top-[31%] left-[69.5%] w-[5.5%] h-[7.5%] flex flex-col gap-[8%] pointer-events-none z-20">
+            <div className="absolute top-[30.8%] left-[69.3%] w-[6%] h-[8%] flex flex-col gap-[8%] pointer-events-none z-20">
               <div className="relative w-full h-full bg-white rounded-full shadow-md flex items-center justify-center overflow-hidden">
                 <motion.div
                   className="w-[40%] h-[40%] bg-black rounded-full"
@@ -163,7 +163,7 @@ const Contact = () => {
             </div>
 
             {/* Yellow Character Eyes (Middle - Two Eyes) */}
-            <div className="absolute top-[70.5%] left-[55.5%] w-[14%] h-[5.5%] flex gap-[8%] justify-center pointer-events-none z-20">
+            <div className="absolute top-[70%] left-[55%] w-[15%] h-[6.5%] flex gap-[8%] justify-center pointer-events-none z-20">
               <div className="relative w-full h-full bg-white rounded-full shadow-inner flex items-center justify-center overflow-hidden border border-black/5">
                 <motion.div
                   className="w-[50%] h-[50%] bg-black rounded-full"
