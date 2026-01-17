@@ -27,10 +27,11 @@ const ProjectCard = ({ project, containerRef, onClick }: { project: Project, con
     offset: ["center end", "center start"]
   });
 
-  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.85, 1.15, 0.85]);
-  const rotateY = useTransform(scrollXProgress, [0, 0.5, 1], [25, 0, -25]);
-  const opacity = useTransform(scrollXProgress, [0, 0.3, 0.5, 0.7, 1], [0.6, 0.8, 1, 0.8, 0.6]);
-  const zIndex = useTransform(scrollXProgress, [0, 0.5, 1], [0, 10, 0]);
+  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.8, 1.25, 0.8]);
+  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [30, 0, -30]);
+  const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
+  const zIndex = useTransform(scrollXProgress, [0, 0.5, 1], [0, 20, 0]);
+  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-40, 0, 40]);
 
   return (
     <motion.div
@@ -40,9 +41,9 @@ const ProjectCard = ({ project, containerRef, onClick }: { project: Project, con
         rotateY,
         opacity,
         zIndex,
-        perspective: 1000
+        x
       }}
-      className="snap-center shrink-0 min-w-[80vw] md:min-w-[400px] h-full flex items-center justify-center py-8"
+      className="snap-center shrink-0 min-w-[75vw] md:min-w-[500px] h-full flex items-center justify-center py-8"
     >
       <div
         className="w-full bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl hover:border-primary/50 transition-colors duration-500 cursor-pointer h-[50vh] md:h-[450px] relative group transform-style-3d bg-black"
@@ -66,15 +67,15 @@ const ProjectCard = ({ project, containerRef, onClick }: { project: Project, con
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 z-20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-          <h3 className="font-display text-3xl font-bold text-white mb-3 drop-shadow-lg">
+        <div className="absolute bottom-0 left-0 right-0 p-8 z-20 transform translate-y-2 group-hover:translate-y-2 group-hover:md:translate-y-0 transition-transform duration-500">
+          <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-xl">
             {project.title}
           </h3>
-          <p className="text-white/80 text-sm line-clamp-2 mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <p className="text-white/80 text-sm md:text-base line-clamp-2 mb-6 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 md:delay-100">
             {project.description}
           </p>
 
-          <div className="flex items-center gap-2 text-white/90 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+          <div className="flex items-center gap-2 text-white/90 text-sm font-medium opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 md:delay-200">
             <span>View Project</span>
             <ArrowUpRight className="w-4 h-4" />
           </div>
@@ -263,7 +264,7 @@ const Work = () => {
           </div>
 
           {/* 3D Scroll Container - "The Track" */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[10vw] md:px-[30vw] space-x-4 md:space-x-8 scrollbar-hide perspective-1000 items-center h-[70vh] md:h-[600px]">
+          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[5vw] md:px-[25vw] scrollbar-hide [perspective:1000px] items-center h-[70vh] md:h-[600px]">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
                 <ProjectCard
