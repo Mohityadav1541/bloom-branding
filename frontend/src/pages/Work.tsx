@@ -264,7 +264,7 @@ const Work = () => {
           </div>
 
           {/* 3D Scroll Container - "The Track" */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[5vw] md:px-[25vw] scrollbar-hide [perspective:1000px] items-center h-[70vh] md:h-[600px]">
+          <div className="flex overflow-x-auto snap-x snap-mandatory py-12 px-[5vw] md:px-[25vw] scrollbar-hide [perspective:800px] [transform-style:preserve-3d] items-center h-[70vh] md:h-[600px]">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
                 <ProjectCard
