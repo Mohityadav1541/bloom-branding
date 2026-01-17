@@ -27,11 +27,17 @@ const ProjectCard = ({ project, containerRef, onClick }: { project: Project, con
     offset: ["center end", "center start"]
   });
 
+  // Sharper z-index: center is 100, sides are 0.
+  const zIndex = useTransform(scrollXProgress, [0, 0.45, 0.5, 0.55, 1], [0, 0, 100, 0, 0]);
+
+  // Physical Z movement
+  const z = useTransform(scrollXProgress, [0, 0.5, 1], [-100, 0, -100]);
+
   const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.8, 1.25, 0.8]);
-  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [30, 0, -30]);
-  const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
-  const zIndex = useTransform(scrollXProgress, [0, 0.5, 1], [0, 20, 0]);
-  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-40, 0, 40]);
+  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [35, 0, -35]);
+  const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
+  // Increase overlap
+  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-60, 0, 60]);
 
   return (
     <motion.div
@@ -41,12 +47,13 @@ const ProjectCard = ({ project, containerRef, onClick }: { project: Project, con
         rotateY,
         opacity,
         zIndex,
-        x
+        x,
+        z
       }}
       className="snap-center shrink-0 min-w-[75vw] md:min-w-[500px] h-full flex items-center justify-center py-8"
     >
       <div
-        className="w-full bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl hover:border-primary/50 transition-colors duration-500 cursor-pointer h-[50vh] md:h-[450px] relative group transform-style-3d bg-black"
+        className="w-full bg-card border border-border/50 rounded-[2rem] overflow-hidden shadow-2xl transition-colors duration-500 cursor-pointer h-[50vh] md:h-[450px] relative group bg-black"
         onClick={onClick}
       >
         {/* Image Container */}
