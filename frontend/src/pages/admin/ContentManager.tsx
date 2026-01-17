@@ -149,8 +149,6 @@ const ContentManager = () => {
                     </div>
                     </div>
                     
-                    </div>
-                    
                     <div className="space-y-4 border p-4 rounded-xl bg-card">
                         <h3 className="font-semibold text-lg">Our Story Images</h3>
                         
@@ -234,7 +232,7 @@ const ContentManager = () => {
                             </div>
                         </div>
                     </div>
-                </div >
+                </div>
 
     <Button type="submit" disabled={saving} className="w-full">
         {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
