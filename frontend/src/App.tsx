@@ -14,6 +14,7 @@ import Story from "./pages/Story";
 import Work from "./pages/Work";
 import Founder from "./pages/Founder";
 import NotFound from "./pages/NotFound";
+import { Chatbot } from "./components/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AnimatedRoutes />
+          <Chatbot />
         </BrowserRouter>
       </SmoothScroll>
     </TooltipProvider>

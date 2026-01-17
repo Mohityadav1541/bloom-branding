@@ -27,6 +27,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/enquiries', require('./routes/enquiries'));
 app.use('/api/homepage', require('./routes/homepage'));
+app.use('/api/chat', require('./routes/chat'));
 
 app.get('/', (req, res) => {
     res.send('Bloom Studio Digital API is running');
