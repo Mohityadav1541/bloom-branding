@@ -28,13 +28,13 @@ const CarouselItem = ({ project, containerRef, onClick }: { project: Project, co
   });
 
   // Stronger scale for the center item
-  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
+  const scale = useTransform(scrollXProgress, [0, 0.5, 1], [0.75, 1.25, 0.75]);
   // Opacity fade for depth
-  const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
+  const opacity = useTransform(scrollXProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
   // Physical Z translation to pull center forward and push sides back
-  const z = useTransform(scrollXProgress, [0, 0.5, 1], [-100, 0, -100]);
+  const z = useTransform(scrollXProgress, [0, 0.5, 1], [-200, 0, -200]);
   // Rotate for a slight "opening" effect
-  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [25, 0, -25]);
+  const rotateY = useTransform(scrollXProgress, [0.2, 0.5, 0.8], [45, 0, -45]);
 
   // Z-Index: Critical to keep center on top. 
   // Ramps up quickly to 100 at center, then drops back.
@@ -42,7 +42,7 @@ const CarouselItem = ({ project, containerRef, onClick }: { project: Project, co
 
   // X translation to create overlap (Coverflow effect)
   // Pulls side cards in towards the center.
-  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-40, 0, 40]);
+  const x = useTransform(scrollXProgress, [0, 0.5, 1], [-80, 0, 80]);
 
   return (
     <motion.div
