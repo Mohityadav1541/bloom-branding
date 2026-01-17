@@ -165,9 +165,18 @@ export const Footer = () => {
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} Bloom Branding. All rights reserved.
           </p>
-          <p className="text-muted-foreground text-sm">
-            Blooming brands, one story at a time.
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-muted-foreground text-sm">
+              Blooming brands, one story at a time.
+            </p>
+            <Link
+              to="/admin"
+              className="text-xs text-muted-foreground/40 hover:text-primary transition-colors"
+              aria-label="Admin Login"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
