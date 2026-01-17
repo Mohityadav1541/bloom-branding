@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LogOut, LayoutGrid, Layers, User, MessageSquare } from 'lucide-react';
+import { LogOut, LayoutGrid, Layers, User, MessageSquare, Edit } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AdminLayout = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<'projects' | 'services' | 'enquiries'>('projects');
+    const [activeTab, setActiveTab] = useState<'projects' | 'services' | 'enquiries' | 'content'>('projects');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -59,6 +59,16 @@ const AdminLayout = () => {
                     >
                         <MessageSquare className="w-5 h-5" />
                         Enquiries
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('content')}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'content'
+                            ? 'bg-primary/10 text-primary font-medium'
+                            : 'text-muted-foreground hover:bg-muted'
+                            }`}
+                    >
+                        <Edit className="w-5 h-5" />
+                        Content
                     </button>
                 </nav>
 

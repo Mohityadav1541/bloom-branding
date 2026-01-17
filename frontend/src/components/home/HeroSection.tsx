@@ -8,14 +8,49 @@ import { Button } from "@/components/ui/button";
 export const HeroSection = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [content, setContent] = useState({
+    heroTitle: "We Help Brands Bloom & Thrive",
+    heroSubtitle: "Where strategic storytelling meets immersive technology. We craft digital experiences that exist at the edge of imagination.",
+    heroVideoUrl: "https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4",
+    heroBadge: "Future of Branding",
+    showreelLink: "/work"
+  });
 
   useEffect(() => {
+    // Fetch dynamic content
+    const fetchContent = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/homepage`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            setContent({
+              heroTitle: data.heroTitle || content.heroTitle,
+              heroSubtitle: data.heroSubtitle || content.heroSubtitle,
+              heroVideoUrl: data.heroVideoUrl || content.heroVideoUrl,
+              heroBadge: data.heroBadge || content.heroBadge,
+              showreelLink: data.showreelLink || content.showreelLink
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load homepage content", error);
+      }
+    };
+
+    fetchContent();
+
     // Sync text reveal with video shutter timing
     const timer = setTimeout(() => {
       setShowText(true);
-    }, 1500); // Trigger earlier for smoother flow
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Split title for animation logic (assuming standard format)
+  const titleParts = content.heroTitle.split("Bloom");
+  const preBloom = titleParts[0] ? titleParts[0].trim().split(" ") : ["We", "Help", "Brands"];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -62,22 +97,20 @@ export const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse box-shadow-[0_0_10px_0_rgba(34,211,238,0.5)]" />
-            <span className="text-sm text-white/80 tracking-wide font-light">Future of Branding</span>
+            <span className="text-sm text-white/80 tracking-wide font-light">{content.heroBadge}</span>
           </motion.div>
 
           {/* Main Heading - 3D VFX Reveal */}
           <motion.h1
             initial={{ opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
             animate={showText ? { opacity: 1, scale: 1, rotateX: 0, y: 0, filter: "blur(0px)" } : { opacity: 0, scale: 0.8, rotateX: 90, y: 50, filter: "blur(20px)" }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }} // Cubic bezier for "tech" feel
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold leading-[1.1] mb-6 flex flex-col items-center perspective-text"
             style={{ perspective: "1000px" }}
           >
             <div className="overflow-hidden p-2">
               <div className="flex flex-wrap gap-2 md:gap-4 justify-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-purple-400 animate-gradient-x tracking-tight drop-shadow-2xl">
-                <span>We</span>
-                <span>Help</span>
-                <span>Brands</span>
+                {preBloom.map((word, i) => <span key={i}>{word}</span>)}
               </div>
             </div>
             <div className="overflow-hidden p-2">
@@ -97,8 +130,7 @@ export const HeroSection = () => {
             className="max-w-2xl mx-auto mb-10"
           >
             <p className="text-lg md:text-xl text-white/70 leading-relaxed font-light">
-              Where strategic storytelling meets <span className="text-cyan-400">immersive technology</span>. We craft digital experiences
-              that exist at the edge of imagination.
+              {content.heroSubtitle}
             </p>
           </motion.div>
 
@@ -116,7 +148,7 @@ export const HeroSection = () => {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="group border-white/10 text-white hover:bg-white/5 hover:text-cyan-400">
-              <Link to="/work">
+              <Link to={content.showreelLink}>
                 <Play className="mr-2 h-4 w-4" />
                 Showreel
               </Link>
@@ -130,16 +162,13 @@ export const HeroSection = () => {
         className="absolute inset-0 z-0 overflow-hidden bg-gray-900 bg-cover bg-center"
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2564&auto=format&fit=crop")' }}
       >
-        {/* Placeholder Message for User */}
         <div className="absolute top-4 left-4 z-50 bg-black/50 text-white text-xs px-2 py-1 rounded pointer-events-none">
           Use your Camera Shutter 3D Render Here
         </div>
 
         <motion.div
           className="absolute inset-0 w-full h-full"
-          // Use will-change to hint browser optimization
           style={{ willChange: "filter" }}
-          // Reduced blur amount significantly for performance (4px -> 0px/2px) or remove dynamic blur on scroll
           animate={{ filter: showText ? "blur(2px)" : "blur(0px)" }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         >
@@ -150,21 +179,17 @@ export const HeroSection = () => {
             loop={false}
             preload="auto"
             className="w-full h-full object-cover opacity-100"
-            // Remove poster to prevent double loading visual or keep low-res
             poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop"
             onLoadedData={() => setIsVideoLoaded(true)}
+            key={content.heroVideoUrl} // Re-render if URL changes
           >
-            {/* Use same video but ensure attribute correctness */}
-            <source src="https://videos.pexels.com/video-files/3205903/3205903-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            <source src={content.heroVideoUrl} type="video/mp4" />
           </video>
         </motion.div>
 
-        {/* Keep the VFX Noise but lightweight */}
         <div className="absolute inset-0 bg-black/20 pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
       </div>
-
-
     </section>
   );
 };

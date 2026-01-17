@@ -2,9 +2,10 @@ import { useOutletContext } from 'react-router-dom';
 import ProjectManager from './ProjectManager';
 import ServiceManager from './ServiceManager';
 import EnquiryManager from './EnquiryManager';
+import ContentManager from './ContentManager';
 
 const AdminDashboard = () => {
-    const { activeTab } = useOutletContext<{ activeTab: 'projects' | 'services' | 'enquiries' }>();
+    const { activeTab } = useOutletContext<{ activeTab: 'projects' | 'services' | 'enquiries' | 'content' }>();
 
     const getHeaderInfo = () => {
         switch (activeTab) {
@@ -22,6 +23,11 @@ const AdminDashboard = () => {
                 return {
                     title: 'Enquiry Management',
                     description: 'View and manage client enquiries and messages.'
+                };
+            case 'content':
+                return {
+                    title: 'Content Management',
+                    description: 'Update homepage text, banners, and media.'
                 };
             default:
                 return { title: '', description: '' };
@@ -44,6 +50,7 @@ const AdminDashboard = () => {
             {activeTab === 'projects' && <ProjectManager />}
             {activeTab === 'services' && <ServiceManager />}
             {activeTab === 'enquiries' && <EnquiryManager />}
+            {activeTab === 'content' && <ContentManager />}
         </div>
     );
 };
