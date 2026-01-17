@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const footerLinks = {
   navigation: [
@@ -20,6 +21,36 @@ const footerLinks = {
 };
 
 export const Footer = () => {
+  const [contactInfo, setContactInfo] = useState({
+    email: "hello@bloombranding.com",
+    location: "Jaipur, India",
+    instagram: "https://www.instagram.com/bloom.branding_/",
+    linkedin: "#"
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/homepage`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            setContactInfo({
+              email: data.contactEmail || "hello@bloombranding.com",
+              location: data.contactLocation || "Jaipur, India",
+              instagram: data.contactInstagram || "https://www.instagram.com/bloom.branding_/",
+              linkedin: data.contactLinkedin || "#"
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load footer info", error);
+      }
+    };
+    fetchContactInfo();
+  }, []);
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-6 py-16">
@@ -42,7 +73,7 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4">
               <motion.a
-                href="https://www.instagram.com/bloom.branding_/"
+                href={contactInfo.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
@@ -51,14 +82,16 @@ export const Footer = () => {
                 <Instagram size={18} />
               </motion.a>
               <motion.a
-                href="#"
+                href={contactInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
                 className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <Linkedin size={18} />
               </motion.a>
               <motion.a
-                href="mailto:hello@bloombranding.com"
+                href={`mailto:${contactInfo.email}`}
                 whileHover={{ scale: 1.1, y: -2 }}
                 className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
               >
@@ -104,8 +137,8 @@ export const Footer = () => {
                 <Mail size={18} className="text-primary mt-1" />
                 <div>
                   <p className="text-sm text-muted-foreground">Email us at</p>
-                  <a href="mailto:hello@bloombranding.com" className="text-foreground hover:text-primary transition-colors">
-                    hello@bloombranding.com
+                  <a href={`mailto:${contactInfo.email}`} className="text-foreground hover:text-primary transition-colors">
+                    {contactInfo.email}
                   </a>
                 </div>
               </div>
@@ -114,12 +147,12 @@ export const Footer = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">Based in</p>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Jaipur,+India"
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.location)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-foreground hover:text-primary transition-colors"
                   >
-                    Jaipur, India
+                    {contactInfo.location}
                   </a>
                 </div>
               </div>

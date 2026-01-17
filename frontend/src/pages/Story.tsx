@@ -45,7 +45,11 @@ const Story = () => {
     storyTeamImage: teamPhoto,
     storyFounderImage: founderPhoto,
     storyVisionImage: visionImage,
-    storyMissionImage: missionImage
+    storyMissionImage: missionImage,
+    founderName: "Pranjal Jain",
+    founderRole: "The Founder",
+    founderBio1: "With over a decade of experience in digital design and branding, Pranjal founded Bloom Branding with a vision to bridge the gap between strategic thinking and creative expression.",
+    founderBio2: "\"Design isn't just about making things look good. It's about solving problems and creating meaningful connections between brands and their audience. That's what drives us every day.\""
   });
 
   useEffect(() => {
@@ -60,7 +64,11 @@ const Story = () => {
               storyTeamImage: data.storyTeamImage || teamPhoto,
               storyFounderImage: data.storyFounderImage || founderPhoto,
               storyVisionImage: data.storyVisionImage || visionImage,
-              storyMissionImage: data.storyMissionImage || missionImage
+              storyMissionImage: data.storyMissionImage || missionImage,
+              founderName: data.founderName || "Pranjal Jain",
+              founderRole: data.founderRole || "The Founder",
+              founderBio1: data.founderBio1 || "With over a decade of experience in digital design and branding, Pranjal founded Bloom Branding with a vision to bridge the gap between strategic thinking and creative expression.",
+              founderBio2: data.founderBio2 || "\"Design isn't just about making things look good. It's about solving problems and creating meaningful connections between brands and their audience. That's what drives us every day.\""
             });
           }
         }
@@ -362,21 +370,17 @@ const Story = () => {
                 className="order-1 lg:order-2"
               >
                 <span className="text-primary text-sm uppercase tracking-widest font-medium">
-                  The Founder
+                  {content.founderRole}
                 </span>
                 <h2 className="font-display text-4xl font-semibold mt-4 mb-6">
-                  Pranjal Jain
+                  {content.founderName}
                 </h2>
                 <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                   <p>
-                    With over a decade of experience in digital design and branding,
-                    Pranjal founded Bloom Branding with a vision to bridge the gap between
-                    strategic thinking and creative expression.
+                    {content.founderBio1}
                   </p>
                   <p>
-                    "Design isn't just about making things look good. It's about solving
-                    problems and creating meaningful connections between brands and their
-                    audience. That's what drives us every day."
+                    {content.founderBio2}
                   </p>
                 </div>
                 <div className="mt-8">

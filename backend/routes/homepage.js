@@ -37,6 +37,23 @@ router.put('/', async (req, res) => {
         homepage.storyVisionImage = req.body.storyVisionImage !== undefined ? req.body.storyVisionImage : homepage.storyVisionImage;
         homepage.storyMissionImage = req.body.storyMissionImage !== undefined ? req.body.storyMissionImage : homepage.storyMissionImage;
 
+        // Founder Info
+        homepage.founderName = req.body.founderName || homepage.founderName;
+        homepage.founderRole = req.body.founderRole || homepage.founderRole;
+        homepage.founderBio1 = req.body.founderBio1 || homepage.founderBio1;
+        homepage.founderBio2 = req.body.founderBio2 || homepage.founderBio2;
+
+        // Contact Info
+        homepage.contactEmail = req.body.contactEmail || homepage.contactEmail;
+        homepage.contactLocation = req.body.contactLocation || homepage.contactLocation;
+        homepage.contactInstagram = req.body.contactInstagram || homepage.contactInstagram;
+        homepage.contactLinkedin = req.body.contactLinkedin || homepage.contactLinkedin;
+
+        // Client Logos
+        if (req.body.clientLogos) {
+            homepage.clientLogos = req.body.clientLogos;
+        }
+
         homepage.updatedAt = Date.now();
 
         const updatedHomepage = await homepage.save();
